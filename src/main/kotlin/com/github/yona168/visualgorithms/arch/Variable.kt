@@ -61,7 +61,7 @@ fun string(name: String, value:String)=StringVariable(name, value)
  * Represents the vars available within a scope.
  * @param[parent] vars from an outer scope that can also be accessed
  */
-class Vars(private val parent: Vars?) {
+class Vars(private val parent: Vars? = null) {
     private val myVars: VarMap = mutableMapOf()
 
     private fun getOrDefault(key: String, default: Variable<*>):Variable<*>{
