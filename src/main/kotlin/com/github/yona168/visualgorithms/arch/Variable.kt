@@ -7,7 +7,7 @@ import java.lang.UnsupportedOperationException
  * @property[name] the name of this variable (ie "x")
  * @property[value] The value of this variable
  */
-abstract class Variable<T>(protected val name: String, protected var value: T){
+abstract class Variable<T>(val name: String, var value: T){
 
 }
 private fun throwExec(): Nothing =throw UnsupportedOperationException("Can't do this! (Yet)!")
