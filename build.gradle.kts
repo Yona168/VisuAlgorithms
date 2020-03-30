@@ -16,6 +16,7 @@ dependencies {
     implementation("no.tornado:tornadofx:2.0.0-SNAPSHOT")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:4.0.1")
     testImplementation("io.kotest:kotest-assertions-core-jvm:4.0.1")
+    testImplementation("io.kotest:kotest-property-jvm:4.0.1")
 }
 
 tasks.withType<Test>(){
