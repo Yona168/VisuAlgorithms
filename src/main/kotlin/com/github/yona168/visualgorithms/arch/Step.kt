@@ -26,10 +26,10 @@ class ContextedActionStep(parentVars: Vars?, usageStrategy: VarUsageStrategy, de
     infix fun add(actionStep: ActionStep){
         children+=ContextedActionStep(this.vars, VarUsageStrategy.USE_AS_SAME_LEVEL, actionStep)
     }
-    infix fun add(iff: IfChain){
-        children+=ContextedIfChain(this.vars, VarUsageStrategy.USE_AS_PARENT, iff)
+    infix fun add(iff: IfChain.Builder){
+        children+=ContextedIfChain(this.vars, VarUsageStrategy.USE_AS_PARENT, iff.build())
     }
-    infix fun add(iff: ()->IfChain){
+    infix fun add(iff: ()->IfChain.Builder){
         add(iff())
     }
     override fun run():Boolean {
@@ -48,10 +48,7 @@ class IfChain(val ifElseIfs: List<If>, val els:ActionStep? = null) {
         protected var currentIfCondition=condition
 
         fun elseIf(condition: Condition)=apply{this.currentIfCondition=condition}
-        fun els(els: ActionStep):IfChain{
-            this.els=els
-            return this.build()
-        }
+        fun els(els: ActionStep)=apply{this.els=els}
         fun els(desc: String, action: Action)=els(ActionStep(desc, action))
 
         fun build()=IfChain(elseIfs, els)
