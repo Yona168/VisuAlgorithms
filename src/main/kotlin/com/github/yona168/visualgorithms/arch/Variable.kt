@@ -17,14 +17,25 @@ private fun throwExec(): Nothing =throw UnsupportedOperationException("Can't do 
  */
 class IntVariable(name:String, value: Int):Variable<Int>(name, value){
     operator fun plus(other: IntVariable) = int(name, this.value+other.value)
+    operator fun plus(other: Int)=int(name, this.value+other)
     operator fun plusAssign(other: IntVariable){this.value+=other.value}
     operator fun plusAssign(other: Int){this.value+=other}
     operator fun minus(other: IntVariable)=int(name, this.value-other.value)
+    operator fun minus(other: Int)=int(name, this.value-other)
     operator fun minusAssign(other: IntVariable){this.value-=other.value}
+    operator fun minusAssign(other: Int){this.value-=other}
     operator fun times(other: IntVariable)=int(name, this.value * other.value)
+    operator fun times(other: Int)=int(name, this.value * other)
     operator fun timesAssign(other: IntVariable){this.value*=other.value}
+    operator fun timesAssign(other: Int){this.value*=other}
     operator fun div(other: IntVariable)=int(name, this.value/other.value)
+    operator fun div(other: Int)=int(name, this.value/other)
     operator fun divAssign(other: IntVariable){this.value/=other.value}
+    operator fun divAssign(other: Int){this.value/=other}
+    operator fun rem(other: IntVariable)=int(name, this.value%other.value)
+    operator fun rem(other: Int)=int(name, this.value%other)
+    operator fun remAssign(other: IntVariable){this.value%=other.value}
+    operator fun remAssign(other: Int){this.value%=other}
 
     /**
      * @return true if [other] is an Int that matches this [value], or if other is an [IntVariable] with a matching
