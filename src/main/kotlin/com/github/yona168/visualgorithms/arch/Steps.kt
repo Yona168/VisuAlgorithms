@@ -13,15 +13,14 @@ sealed class Step(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) {
     }
 }
 
-interface HasSubSteps {
-    fun steps(): Sequence<Step>
+abstract class ParentStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy):Step(parentVars, varUsageStrategy) {
+    abstract fun steps(): Sequence<Step>
 }
 
 abstract class BarrenStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) :
     Step(parentVars, varUsageStrategy)
 
-class ParentStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) : Step(parentVars, varUsageStrategy),
-    HasSubSteps {
+class ContainerStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) : ParentStep(parentVars, varUsageStrategy){
     val children = mutableListOf<Step>()
     override fun steps() = children.asSequence()
 
@@ -43,7 +42,7 @@ class ParentStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) : Step(p
 }
 
 typealias BarrenAction = BarrenStep.() -> Unit
-typealias ParentAction = ParentStep.() -> Unit
+typealias ParentAction = ContainerStep.() -> Unit
 
 
 class ActionStep(val desc: String, val barrenAction: BarrenAction)
@@ -87,7 +86,7 @@ class ContextedCheckCondition(val condition: Condition, parentVars: Vars?) :
     BarrenStep(parentVars, VarUsageStrategy.USE_AS_PARENT) {
 }
 
-class ContextedIf(private val iff: If, vars: Vars?) : BarrenStep(vars, VarUsageStrategy.USE_AS_PARENT), HasSubSteps {
+class ContextedIf(private val iff: If, vars: Vars?) : ParentStep(vars, VarUsageStrategy.USE_AS_PARENT){
     private val thenStep: Step = ContextedActionStep(vars, VarUsageStrategy.USE_AS_PARENT, iff.then)
     private val contextedCheckCondition: Step = ContextedCheckCondition(iff.condition, vars)
     override fun steps() = sequenceOf(contextedCheckCondition, thenStep)
@@ -99,7 +98,7 @@ class ContextedIfChain(
     private val usageStrategy: VarUsageStrategy,
     private val ifChain: IfChain,
     els: ActionStep? = null
-) : BarrenStep(parentVars, usageStrategy), HasSubSteps {
+) : ParentStep(parentVars, usageStrategy) {
     val contextedIfs = ifChain.ifElseIfs.map { ContextedIf(it, parentVars) }
     val contextedElse: ContextedActionStep? =
         if (els == null) null

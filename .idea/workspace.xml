@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07db29b8-2fdd-4e60-96cf-d48be0124bb5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Algorithm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Algorithm.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Runner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Runner.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Steps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Steps.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Variable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Variable.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,10 +176,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="463" y="106" key="#com.intellij.ide.util.MemberChooser" timestamp="1586234427746">
+    <state x="463" y="106" key="#com.intellij.ide.util.MemberChooser" timestamp="1586234871416">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="463" y="106" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1586234427746" />
+    <state x="463" y="106" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1586234871416" />
     <state x="556" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585349766707" />
     <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586232546687">
       <screen x="0" y="0" width="1280" height="680" />
