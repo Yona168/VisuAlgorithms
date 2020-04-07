@@ -14,6 +14,8 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation("no.tornado:tornadofx:2.0.0-SNAPSHOT")
+    implementation("com.github.thomasnield:rxkotlinfx:2.2.2")
+    implementation("io.reactivex.rxjava3:rxkotlin:3.0.0")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:4.0.1")
     testImplementation("io.kotest:kotest-assertions-core-jvm:4.0.1")
     testImplementation("io.kotest:kotest-property-jvm:4.0.1")
