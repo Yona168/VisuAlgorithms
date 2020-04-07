@@ -112,10 +112,10 @@ fun string(name: String, value: String) = SimpleStringProperty(null, name, value
  * @param[parent] vars from an outer scope that can also be accessed
  */
 typealias VarMap = MutableMap<String, ObservableValue<*>>
-
+typealias ChangeHandler = (ObservableValue<*>?,ObservableValue<*>?) -> Unit
 class Vars(private val parent: Vars? = null){
     private val myVars: VarMap = mutableMapOf()
-    private val onChanges: MutableList<((ObservableValue<*>?,ObservableValue<*>?) -> Unit)> = mutableListOf()
+    private val onChanges: MutableList<ChangeHandler> = mutableListOf()
 
     init{
         if(parent!=null){
@@ -168,4 +168,8 @@ class Vars(private val parent: Vars? = null){
      * Convenience function
      */
     operator fun set(key: String, value: String) = set(key, string(key, value))
+
+    fun onChange(changeHandler: ChangeHandler){
+        this.onChanges+=changeHandler
+    }
 }
