@@ -3,6 +3,7 @@ package com.github.yona168.visualgorithms.arch
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.beans.value.ObservableValue
+import javafx.collections.ObservableMap
 import kotlin.properties.ReadOnlyProperty
 
 /*
@@ -112,8 +113,15 @@ fun string(name: String, value: String) = SimpleStringProperty(null, name, value
  */
 typealias VarMap = MutableMap<String, ObservableValue<*>>
 
-class Vars(private val parent: Vars? = null) {
+class Vars(private val parent: Vars? = null){
     private val myVars: VarMap = mutableMapOf()
+    private val onChanges: MutableList<((ObservableValue<*>?,ObservableValue<*>?) -> Unit)> = mutableListOf()
+
+    init{
+        if(parent!=null){
+            onChanges+=parent.onChanges
+        }
+    }
 
     private fun getOrDefault(key: String, default: ObservableValue<*>): ObservableValue<*>{
         return get(key) ?: default
@@ -139,12 +147,15 @@ class Vars(private val parent: Vars? = null) {
      * @param[value] The variable
      */
     operator fun set(key: String, value: ObservableValue<*>) {
+        val oldValue=get(key)
         if (myVars[key] != null) {
             myVars[key] = value
+            onChanges.forEach { it(oldValue, value) }
         } else if (parent?.get(key) != null) {
             parent[key] = value
         } else {
             myVars[key] = value
+            onChanges.forEach { it(oldValue, value) }
         }
     }
 

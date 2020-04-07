@@ -14,7 +14,7 @@ sealed class Step(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) {
 }
 
 interface HasSubSteps {
-    suspend fun steps(): Sequence<Step>
+    fun steps(): Sequence<Step>
 }
 
 abstract class BarrenStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) :
@@ -23,7 +23,7 @@ abstract class BarrenStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy)
 class ParentStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) : Step(parentVars, varUsageStrategy),
     HasSubSteps {
     val children = mutableListOf<Step>()
-    override suspend fun steps() = children.asSequence()
+    override fun steps() = children.asSequence()
 
     fun add(desc: String, barrenAction: BarrenAction) {
         children += ContextedActionStep(this.vars, VarUsageStrategy.USE_AS_SAME_LEVEL, desc, barrenAction)
@@ -90,7 +90,7 @@ class ContextedCheckCondition(val condition: Condition, parentVars: Vars?) :
 class ContextedIf(private val iff: If, vars: Vars?) : BarrenStep(vars, VarUsageStrategy.USE_AS_PARENT), HasSubSteps {
     private val thenStep: Step = ContextedActionStep(vars, VarUsageStrategy.USE_AS_PARENT, iff.then)
     private val contextedCheckCondition: Step = ContextedCheckCondition(iff.condition, vars)
-    override suspend fun steps() = sequenceOf(contextedCheckCondition, thenStep)
+    override fun steps() = sequenceOf(contextedCheckCondition, thenStep)
 
 }
 
@@ -105,7 +105,7 @@ class ContextedIfChain(
         if (els == null) null
         else ContextedActionStep(parentVars, VarUsageStrategy.USE_AS_PARENT, els)
 
-    override suspend fun steps(): Sequence<Step> {
+    override fun steps(): Sequence<Step> {
         val stepList= mutableListOf<Step>()
         stepList+=contextedIfs
         if(contextedElse!=null) stepList+=contextedElse

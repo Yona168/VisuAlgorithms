@@ -1,5 +1,8 @@
 package com.github.yona168.visualgorithms.arch
 
-class Runner(private val parentStep: ParentStep){
-
+interface Runner{
+    val current: Step
+    fun runCurrent()
+    fun stepForwards()
+    fun stepBackwards()
 }
