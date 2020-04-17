@@ -9,6 +9,7 @@ sealed class Condition(){
      * @return a [Boolean] representing if this condition is true or false
      */
    abstract fun evaluate():Boolean
+    abstract val desc: String
 }
 
 /**
@@ -24,6 +25,9 @@ class AndParent(one: Condition, two:Condition):ParentCondition(one, two){
      * @return true if both [one] and [two] are true, false otherwise
      */
     override fun evaluate()=conditionOne.evaluate() && conditionTwo.evaluate()
+
+    override val desc: String
+        get() = "${conditionOne.desc} and ${conditionTwo.desc}"
 }
 
 /**
@@ -34,6 +38,8 @@ class OrParent(one: Condition, two: Condition):ParentCondition(one, two){
      * @return [true] if either [one] or [two] is true, false otherwise
      */
     override fun evaluate()=conditionOne.evaluate()||conditionTwo.evaluate()
+    override val desc: String
+        get() = "${conditionOne.desc} or ${conditionTwo.desc}"
 }
 
 /**
@@ -41,7 +47,7 @@ class OrParent(one: Condition, two: Condition):ParentCondition(one, two){
  * @property[desc] A [String] describing this condition for readability
  * @property[supplier] The supplier for [evaluate] to call
  */
-class BoolCondition(val desc: String, private val supplier: ()->Boolean):Condition(){
+class BoolCondition(override val desc: String, private val supplier: ()->Boolean):Condition(){
     /**
      * @return the [Boolean] returned by [supplier]
      */
