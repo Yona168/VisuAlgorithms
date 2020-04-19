@@ -134,7 +134,7 @@ class IfRunner(parentStep: ContextedIf) : AbstractRunner(parentStep) {
         return when (current) {
             is ContextedCheckCondition -> {
                 val conditionStep = thisLevelCurrent as ContextedCheckCondition
-                conditionIs = conditionStep.condition.evaluate()
+                conditionIs = conditionStep.condition.evaluate(conditionStep)
                 if (conditionIs == false) {
                     this.markAsDone()
                 } else stepIndex++

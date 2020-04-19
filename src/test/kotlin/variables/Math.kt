@@ -1,6 +1,6 @@
 package variables
 
-import com.github.yona168.visualgorithms.arch.int
+import com.github.yona168.visualgorithms.arch.variables.int
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -12,31 +12,46 @@ import io.kotest.property.checkAll
 class TestIntVarMath : StringSpec({
     "Adding two numbers"{
         checkAll<Int, Int> { a, b ->
-            a + b shouldBe (int("A", a) + int("B", b)).value
+            a + b shouldBe (int(
+                "A",
+                a
+            ) + int("B", b)).value
             (int("A", a) + b).value shouldBe a + b
         }
     }
     "Subtracting two numbers"{
         checkAll<Int, Int> { a, b ->
-            a - b shouldBe (int("A", a) - int("B", b)).value
+            a - b shouldBe (int(
+                "A",
+                a
+            ) - int("B", b)).value
             (int("a", a) - b).value shouldBe a - b
         }
     }
     "Multiplying two numbers"{
         checkAll<Int, Int> { a, b ->
-            a * b shouldBe (int("A", a) * int("B", b)).value
+            a * b shouldBe (int(
+                "A",
+                a
+            ) * int("B", b)).value
             (int("A", a) * b).value shouldBe a * b
         }
     }
     "Dividing two numbers"{
         checkAll<Int, Int>(nonZeroArb, nonZeroArb) { a, b ->
-            a / b shouldBe (int("A", a) / int("B", b)).value
+            a / b shouldBe (int(
+                "A",
+                a
+            ) / int("B", b)).value
             (int("A", a) / b).value shouldBe a / b
         }
     }
     "Modulo two numbers"{
         checkAll(Arb.int(), nonZeroArb) { a, b ->
-            int("A", a) % int("B", b) shouldBe a % b
+            int(
+                "A",
+                a
+            ) % int("B", b) shouldBe a % b
             (int("A", a) % b).value shouldBe a % b
         }
     }

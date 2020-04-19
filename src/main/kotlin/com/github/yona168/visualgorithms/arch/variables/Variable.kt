@@ -1,12 +1,8 @@
-package com.github.yona168.visualgorithms.arch
+package com.github.yona168.visualgorithms.arch.variables
 
-import javafx.beans.Observable
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.beans.value.ObservableValue
-import javafx.collections.ObservableMap
-import kotlin.properties.ObservableProperty
-import kotlin.properties.ReadOnlyProperty
 
 
 /**
@@ -16,8 +12,10 @@ import kotlin.properties.ReadOnlyProperty
  */
 abstract class Variable<T> constructor(val name: String) {
     var value: T
-        get()=observableProperty.value as T
-        set(value){setObservableValue(value)}
+        get() = observableProperty.value as T
+        set(value) {
+            setObservableValue(value)
+        }
     internal abstract val observableProperty: ObservableValue<in T>
     protected abstract fun setObservableValue(value: T)
 }
@@ -28,9 +26,13 @@ private fun throwExec(): Nothing = throw UnsupportedOperationException("Can't do
  * Represents an [Int]
  */
 class IntVariable(name: String, value: Int) : Variable<Int>(name) {
-    override val observableProperty=SimpleIntegerProperty(null, name, value)
-    operator fun plus(other: IntVariable) = int(name, this.value + other.value)
-    operator fun plus(other: Int) = int(name, this.value + other)
+    override val observableProperty = SimpleIntegerProperty(null, name, value)
+    operator fun plus(other: IntVariable) =
+        int(name, this.value + other.value)
+
+    operator fun plus(other: Int) =
+        int(name, this.value + other)
+
     operator fun plusAssign(other: IntVariable) {
         this.value += other.value
     }
@@ -39,8 +41,12 @@ class IntVariable(name: String, value: Int) : Variable<Int>(name) {
         this.value += other
     }
 
-    operator fun minus(other: IntVariable) = int(name, this.value - other.value)
-    operator fun minus(other: Int) = int(name, this.value - other)
+    operator fun minus(other: IntVariable) =
+        int(name, this.value - other.value)
+
+    operator fun minus(other: Int) =
+        int(name, this.value - other)
+
     operator fun minusAssign(other: IntVariable) {
         this.value -= other.value
     }
@@ -49,8 +55,12 @@ class IntVariable(name: String, value: Int) : Variable<Int>(name) {
         this.value -= other
     }
 
-    operator fun times(other: IntVariable) = int(name, this.value * other.value)
-    operator fun times(other: Int) = int(name, this.value * other)
+    operator fun times(other: IntVariable) =
+        int(name, this.value * other.value)
+
+    operator fun times(other: Int) =
+        int(name, this.value * other)
+
     operator fun timesAssign(other: IntVariable) {
         this.value *= other.value
     }
@@ -59,8 +69,12 @@ class IntVariable(name: String, value: Int) : Variable<Int>(name) {
         this.value *= other
     }
 
-    operator fun div(other: IntVariable) = int(name, this.value / other.value)
-    operator fun div(other: Int) = int(name, this.value / other)
+    operator fun div(other: IntVariable) =
+        int(name, this.value / other.value)
+
+    operator fun div(other: Int) =
+        int(name, this.value / other)
+
     operator fun divAssign(other: IntVariable) {
         this.value /= other.value
     }
@@ -69,8 +83,12 @@ class IntVariable(name: String, value: Int) : Variable<Int>(name) {
         this.value /= other
     }
 
-    operator fun rem(other: IntVariable) = int(name, this.value % other.value)
-    operator fun rem(other: Int) = int(name, this.value % other)
+    operator fun rem(other: IntVariable) =
+        int(name, this.value % other.value)
+
+    operator fun rem(other: Int) =
+        int(name, this.value % other)
+
     operator fun remAssign(other: IntVariable) {
         this.value %= other.value
     }
@@ -87,7 +105,7 @@ class IntVariable(name: String, value: Int) : Variable<Int>(name) {
         (other is Int && this.value == other) || (other is IntVariable && this.value == other.value)
 
     override fun setObservableValue(value: Int) {
-        observableProperty.value=value
+        observableProperty.value = value
     }
 }
 
@@ -95,12 +113,14 @@ class IntVariable(name: String, value: Int) : Variable<Int>(name) {
  * Represents a [String]
  */
 class StringVariable(name: String, value: String) : Variable<String>(name) {
-    override val observableProperty=SimpleStringProperty(null, name, value)
+    override val observableProperty = SimpleStringProperty(null, name, value)
     operator fun plus(other: StringVariable) = this.plus(other.value)
-    operator fun plus(other: String)=string(name, value+other)
-    operator fun plusAssign(other: StringVariable)=this.plusAssign(other.value)
-    operator fun plusAssign(other: String){
-        this.value+=other
+    operator fun plus(other: String) =
+        string(name, value + other)
+
+    operator fun plusAssign(other: StringVariable) = this.plusAssign(other.value)
+    operator fun plusAssign(other: String) {
+        this.value += other
     }
 
     /**
@@ -111,7 +131,7 @@ class StringVariable(name: String, value: String) : Variable<String>(name) {
         (other is String && this.value == other) || (other is StringVariable && this.value == other.value)
 
     override fun setObservableValue(value: String) {
-        observableProperty.value=value
+        observableProperty.value = value
     }
 }
 
@@ -154,22 +174,29 @@ operator fun SimpleIntegerProperty.remAssign(other: SimpleIntegerProperty)=this.
 /**
  * Convenience function for creating an [IntVariable]
  */
-fun int(name: String, value: Int) = IntVariable(name, value)
+fun int(name: String, value: Int) =
+    IntVariable(name, value)
 
 /**
  * Convenience function for creating a [StringVariable]
  */
-fun string(name: String, value: String) = StringVariable(name, value)
+fun string(name: String, value: String) =
+    StringVariable(name, value)
 
+val Int.v: IntVariable
+    get() = int("Temp", this)
+val String.v: StringVariable
+    get() = string("Temp", this)
 /**
  * Represents the vars available within a scope.
  * @param[parent] vars from an outer scope that can also be accessed
  */
 typealias VarMap = MutableMap<String, Variable<*>>
-class Vars(private val parent: Vars? = null){
+
+class Vars(private val parent: Vars? = null) {
     private val myVars: VarMap = mutableMapOf()
 
-    private fun getOrDefault(key: String, default: Variable<*>): Variable<*>{
+    private fun getOrDefault(key: String, default: Variable<*>): Variable<*> {
         return get(key) ?: default
     }
 
@@ -193,7 +220,7 @@ class Vars(private val parent: Vars? = null){
      * @param[value] The variable
      */
     operator fun set(key: String, value: Variable<*>) {
-        val oldValue=get(key)
+        val oldValue = get(key)
         if (myVars[key] != null) {
             myVars[key] = value
         } else if (parent?.get(key) != null) {
@@ -206,11 +233,17 @@ class Vars(private val parent: Vars? = null){
     /**
      * Convenience function
      */
-    operator fun set(key: String, value: Int) = set(key, int(key, value))
+    operator fun set(key: String, value: Int) = set(
+        key,
+        int(key, value)
+    )
 
     /**
      * Convenience function
      */
-    operator fun set(key: String, value: String) = set(key, string(key, value))
+    operator fun set(key: String, value: String) = set(
+        key,
+        string(key, value)
+    )
 
 }
