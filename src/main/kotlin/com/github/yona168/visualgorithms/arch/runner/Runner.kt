@@ -52,7 +52,7 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
         }
 
     protected fun markAsDone() {
-        this.stepIndex = this.stepList.lastIndex
+        backingIsDone=true
     }
 
     override fun previous(): RunResult {

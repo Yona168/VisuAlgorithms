@@ -9,7 +9,7 @@ class HelloWorld:StringSpec({
         var printedText: String = "Didn't work"
         val program=algorithm{
             add("set var printedText to Hello World"){vars["printedText"]="Hello World!"}
-            add("Set outer var to it as well"){vars["printedText"]="Hello World!"}
+            add("Set outer var to it as well"){printedText="Hello World!"}
         }
         run(program)
         printedText.shouldBe("Hello World!")
