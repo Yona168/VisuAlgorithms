@@ -9,21 +9,24 @@ class IfTest: StringSpec({
     "If tests true conditions successfully"{
         var bool=false
         val program=algorithm{
-            add{iff(c("True"){true}).then("Change bool to true"){
-                bool=true
+            add{iff(c("True"){true}).then{
+                add("Change bool to true"){bool=true}
             }}
         }
         run(program)
         bool shouldBe true
     }
+
     "If tests false conditions successfully"{
         var bool=true
         val program=algorithm {
-           add{iff(c("False"){false}).then("Change bool to false"){
-                bool=false
+           add{iff(c("False"){false}).then{
+                add("Change bool to false"){bool=false}
             }}
         }
         run(program)
-        bool shouldBe false
+        bool shouldBe true
     }
+
+
 })

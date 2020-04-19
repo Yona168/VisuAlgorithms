@@ -95,7 +95,7 @@ class IfChain(val ifElseIfs: List<If>, val els: ContainerStep? = null):Uncontext
     }
 
     class ThenBuilder(condition: Condition) : Builder(condition) {
-        fun then(desc: String, containerAction: ParentAction): IfChain.Builder {
+        fun then(containerAction: ParentAction): IfChain.Builder {
             this.elseIfs += If(currentIfCondition, ContainerStep().also(containerAction))
             return this
         }

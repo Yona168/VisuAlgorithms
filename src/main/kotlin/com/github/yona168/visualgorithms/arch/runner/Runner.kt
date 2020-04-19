@@ -74,6 +74,9 @@ class ContainerRunner(parentStep: ContextedContainerStep) : AbstractRunner(
     parentStep
 ) {
     override fun next(): RunResult {
+        if(stepIndex==-1) {
+            stepIndex++
+        }
         if (thisLevelCurrent is ParentStep && currentSubRunner!!.isDone.not()) {
             val result = currentSubRunner!!.next()
             if (currentSubRunner!!.isDone && (stepIndex == stepList.lastIndex)) { //If we have finished all children
@@ -81,10 +84,11 @@ class ContainerRunner(parentStep: ContextedContainerStep) : AbstractRunner(
             }
             return result
         } else {
-            stepIndex++
-            val action = thisLevelCurrent as ContextedActionStep
+            val current=thisLevelCurrent
+            val action = current as ContextedActionStep
             action.barrenAction(action)
-            if (stepIndex == stepList.lastIndex) {
+            stepIndex++
+            if (stepIndex > stepList.lastIndex) {
                 markAsDone()
             }
             return SuccessDesc(action.desc)
@@ -95,7 +99,6 @@ class ContainerRunner(parentStep: ContextedContainerStep) : AbstractRunner(
 class IfChainRunner(parentStep: ContextedIfChain) : AbstractRunner(
     parentStep
 ) {
-    var conditionIs: Boolean? = null
     override fun next(): RunResult {
         if (stepIndex == -1) stepIndex++
         val current = thisLevelCurrent
@@ -107,7 +110,10 @@ class IfChainRunner(parentStep: ContextedIfChain) : AbstractRunner(
                     if (subRunner.conditionIs == true) {
                         this.markAsDone()
                     } else if (subRunner.conditionIs == false) {
-                        this.stepIndex++ //Move to next if statement
+                        if(stepIndex==stepList.lastIndex){ //No else or next if statement
+                            markAsDone()
+                        }
+                        else this.stepIndex++ //Move to next if statement or the last else
                     }
                 }
                 return result

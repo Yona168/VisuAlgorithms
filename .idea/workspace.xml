@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07db29b8-2fdd-4e60-96cf-d48be0124bb5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Steps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Steps.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/IfTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/IfTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +71,44 @@
     </option>
   </component>
   <component name="RunManager" selected="Gradle.VisuAlgorithms [test]">
+    <configuration name="HelloWorld" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;HelloWorld&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="IfTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;IfTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="VisuAlgorithms [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -128,6 +169,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.VisuAlgorithms [test]" />
+        <item itemvalue="Gradle.HelloWorld" />
+        <item itemvalue="Gradle.IfTest" />
         <item itemvalue="Gradle.VisuAlgorithms [build]" />
         <item itemvalue="Gradle.VisuAlgorithms [idea]" />
       </list>
@@ -161,42 +204,46 @@
     </state>
     <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.680@0.0.1280.680" timestamp="1587152106448" />
     <state x="262" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1585456201176" />
-    <state width="1237" height="29" key="GridCell.Tab.0.bottom" timestamp="1587269195846">
+    <state x="792" y="0" key="#xdebugger.evaluate" timestamp="1587272037416">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="29" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1587269195846" />
+    <state x="792" y="0" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1587272037416" />
+    <state width="1237" height="233" key="GridCell.Tab.0.bottom" timestamp="1587272220569">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="233" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1587272220569" />
     <state width="1493" height="190" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="29" key="GridCell.Tab.0.center" timestamp="1587269195846">
+    <state width="1237" height="233" key="GridCell.Tab.0.center" timestamp="1587272220569">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="29" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1587269195846" />
+    <state width="1237" height="233" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1587272220569" />
     <state width="1493" height="190" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="29" key="GridCell.Tab.0.left" timestamp="1587269195846">
+    <state width="1237" height="233" key="GridCell.Tab.0.left" timestamp="1587272220569">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="29" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1587269195846" />
+    <state width="1237" height="233" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1587272220569" />
     <state width="1493" height="190" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="29" key="GridCell.Tab.0.right" timestamp="1587269195846">
+    <state width="1237" height="233" key="GridCell.Tab.0.right" timestamp="1587272220569">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="29" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1587269195846" />
+    <state width="1237" height="233" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1587272220569" />
     <state width="1493" height="190" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="29" key="GridCell.Tab.1.bottom" timestamp="1587269195847">
+    <state width="1237" height="2" key="GridCell.Tab.1.bottom" timestamp="1587272202976">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="29" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1587269195847" />
-    <state width="1237" height="29" key="GridCell.Tab.1.center" timestamp="1587269195847">
+    <state width="1237" height="2" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1587272202976" />
+    <state width="1237" height="2" key="GridCell.Tab.1.center" timestamp="1587272202976">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="29" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1587269195847" />
-    <state width="1237" height="29" key="GridCell.Tab.1.left" timestamp="1587269195847">
+    <state width="1237" height="2" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1587272202976" />
+    <state width="1237" height="2" key="GridCell.Tab.1.left" timestamp="1587272202976">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="29" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1587269195847" />
-    <state width="1237" height="29" key="GridCell.Tab.1.right" timestamp="1587269195847">
+    <state width="1237" height="2" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1587272202976" />
+    <state width="1237" height="2" key="GridCell.Tab.1.right" timestamp="1587272202976">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="29" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1587269195847" />
+    <state width="1237" height="2" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1587272202976" />
     <state x="249" y="0" key="SettingsEditor" timestamp="1585019944452">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -226,10 +273,75 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
-          <line>76</line>
-          <option name="timeStamp" value="1" />
+          <line>79</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>102</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>129</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Algorithm.kt</url>
+          <line>12</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>139</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>108</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>86</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>87</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>89</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>90</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>91</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>62</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo typeName="com.github.yona168.visualgorithms.arch.runner.ContainerRunner" fieldName="backingSubRunner" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Remote">
+        <watch expression="((ContainerRunner)this).backingSubRunner" custom="com.github.yona168.visualgorithms.arch.runner.ContainerRunner" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
