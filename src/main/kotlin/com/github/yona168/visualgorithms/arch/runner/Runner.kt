@@ -22,7 +22,7 @@ next -> Simply returns next in list
 runCurrent -> if we are pointing to a parent step, runs the deepest and returns true/false if we have finished that step or not.
                Otherwise just runs the current non parent step
  */
-abstract class AbstractRunner(parentStep: ParentStep, parentRunner: Runner?) : Runner {
+abstract class AbstractRunner(parentStep: ParentStep) : Runner {
 
     override val thisLevelCurrent: Step?
         get() = if (stepList.indices.contains(stepIndex).not()) null else stepList.get(stepIndex)
@@ -37,12 +37,12 @@ abstract class AbstractRunner(parentStep: ParentStep, parentRunner: Runner?) : R
         get() {
             if (thisLevelCurrent is ParentStep) {
                 if (backingSubRunner == null) {
-                    backingSubRunner = when (thisLevelCurrent) {
-                        is ContextedContainerStep -> ChildrenContainerRunner(
-                            thisLevelCurrent as ContextedContainerStep,
-                            this
-                        )
-                        else -> TODO()
+                    val current=thisLevelCurrent
+                    backingSubRunner = when (current) {
+                        is ContextedContainerStep -> ContainerRunner(current)
+                        is ContextedIfChain -> IfChainRunner(current)
+                        is ContextedIf->IfRunner(current)
+                        else->throw IllegalStateException()
                     }
                 }
             } else {
@@ -70,9 +70,8 @@ abstract class AbstractRunner(parentStep: ParentStep, parentRunner: Runner?) : R
 
 }
 
-class ChildrenContainerRunner(parentStep: ContextedContainerStep, parentRunner: Runner) : AbstractRunner(
-    parentStep,
-    parentRunner
+class ContainerRunner(parentStep: ContextedContainerStep) : AbstractRunner(
+    parentStep
 ) {
     override fun next(): RunResult {
         if (thisLevelCurrent is ParentStep && currentSubRunner!!.isDone.not()) {
@@ -93,8 +92,8 @@ class ChildrenContainerRunner(parentStep: ContextedContainerStep, parentRunner: 
     }
 }
 
-class IfChainRunner(parentStep: ContextedIfChain, parentRunner: AbstractRunner) : AbstractRunner(
-    parentStep, parentRunner
+class IfChainRunner(parentStep: ContextedIfChain) : AbstractRunner(
+    parentStep
 ) {
     var conditionIs: Boolean? = null
     override fun next(): RunResult {
@@ -119,7 +118,7 @@ class IfChainRunner(parentStep: ContextedIfChain, parentRunner: AbstractRunner) 
     }
 }
 
-class IfRunner(parentStep: ContextedIf, parentRunner: Runner) : AbstractRunner(parentStep, parentRunner) {
+class IfRunner(parentStep: ContextedIf) : AbstractRunner(parentStep) {
     internal var conditionIs: Boolean? = null
     override fun next(): RunResult {
         if (stepIndex == -1) {
@@ -144,5 +143,3 @@ class IfRunner(parentStep: ContextedIf, parentRunner: Runner) : AbstractRunner(p
 
 sealed class RunResult
 class SuccessDesc(val desc: String) : RunResult()
-class Success : RunResult()
-class SkipThis : RunResult()

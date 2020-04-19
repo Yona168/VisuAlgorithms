@@ -2,10 +2,11 @@ import com.github.yona168.visualgorithms.arch.int
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
-import io.kotest.property.PropTestConfig
 import io.kotest.property.arbitrary.arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
+import com.github.yona168.visualgorithms.arch.*
+
 
 
 class TestIntVarMath: StringSpec({
