@@ -96,9 +96,11 @@ class IntVariable(name: String, value: Int) : Variable<Int>(name) {
  */
 class StringVariable(name: String, value: String) : Variable<String>(name) {
     override val observableProperty=SimpleStringProperty(null, name, value)
-    operator fun plus(other: StringVariable) = StringVariable(name, value + other.value)
-    operator fun plusAssign(other: StringVariable) {
-        this.value += other.value
+    operator fun plus(other: StringVariable) = this.plus(other.value)
+    operator fun plus(other: String)=string(name, value+other)
+    operator fun plusAssign(other: StringVariable)=this.plusAssign(other.value)
+    operator fun plusAssign(other: String){
+        this.value+=other
     }
 
     /**
