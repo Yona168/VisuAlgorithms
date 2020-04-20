@@ -94,12 +94,12 @@ class IfChain(val ifElseIfs: List<If>, val els: ContainerStep? = null) : Unconte
         protected var els: ContainerStep? = null
         protected var currentIfCondition = condition
 
-        fun elseIf(condition: Condition):ThenBuilder {
+        fun elseIf(condition: Condition): ThenBuilder {
             this.currentIfCondition = condition
             return this as ThenBuilder
         }
 
-        fun els(parentAction: ParentAction) {
+        fun els(parentAction: ParentAction) = apply {
             val containerStep = ContainerStep()
             parentAction(containerStep)
             this.els = containerStep
@@ -133,13 +133,12 @@ class ContextedIf(private val iff: If, vars: Vars?) : ParentStep(vars, VarUsageS
 class ContextedIfChain(
     private val parentVars: Vars?,
     private val usageStrategy: VarUsageStrategy,
-    private val ifChain: IfChain,
-    els: ActionStep? = null
+    private val ifChain: IfChain
 ) : ParentStep(parentVars, usageStrategy) {
     val contextedIfs = ifChain.ifElseIfs.map { ContextedIf(it, parentVars) }
-    val contextedElse: ContextedActionStep? =
-        if (els == null) null
-        else ContextedActionStep(parentVars, VarUsageStrategy.USE_AS_PARENT, els)
+    val contextedElse: ContextedContainerStep? =
+        if (ifChain.els == null) null
+        else ContextedContainerStep(ifChain.els, parentVars, VarUsageStrategy.USE_AS_PARENT)
 
     override fun steps(): List<Step> {
         val stepList = mutableListOf<Step>()

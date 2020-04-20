@@ -33,10 +33,11 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
     override val isDone: Boolean
         get() = backingIsDone
     private var backingSubRunner: Runner? = null
+    private var backingSubRunnerIndex: Int? = null
     protected val currentSubRunner: Runner?
         get() {
             if (thisLevelCurrent is ParentStep) {
-                if (backingSubRunner == null) {
+                if (backingSubRunner == null || stepIndex!=backingSubRunnerIndex) {
                     val current=thisLevelCurrent
                     backingSubRunner = when (current) {
                         is ContextedContainerStep -> ContainerRunner(current)
@@ -44,9 +45,11 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
                         is ContextedIf->IfRunner(current)
                         else->throw IllegalStateException()
                     }
+                    backingSubRunnerIndex=stepIndex
                 }
             } else {
                 backingSubRunner = null
+                backingSubRunnerIndex=null
             }
             return backingSubRunner
         }
@@ -102,6 +105,7 @@ class IfChainRunner(parentStep: ContextedIfChain) : AbstractRunner(
     override fun next(): RunResult {
         if (stepIndex == -1) stepIndex++
         val current = thisLevelCurrent
+
         return when (current) {
             is ContextedIf -> {
                 val subRunner = currentSubRunner as IfRunner
@@ -112,8 +116,7 @@ class IfChainRunner(parentStep: ContextedIfChain) : AbstractRunner(
                     } else if (subRunner.conditionIs == false) {
                         if(stepIndex==stepList.lastIndex){ //No else or next if statement
                             markAsDone()
-                        }
-                        else this.stepIndex++ //Move to next if statement or the last else
+                        } else this.stepIndex++ //Move to next if statement or the last else
                     }
                 }
                 return result
@@ -137,8 +140,11 @@ class IfRunner(parentStep: ContextedIf) : AbstractRunner(parentStep) {
                 conditionIs = conditionStep.condition.evaluate(conditionStep)
                 if (conditionIs == false) {
                     this.markAsDone()
-                } else stepIndex++
-                return SuccessDesc("Evaluate ${conditionStep.condition.desc}")
+                } else {
+                    stepIndex++
+                }
+                val result=SuccessDesc("Evaluate ${conditionStep.condition.desc} -> $conditionIs")
+                return result
             }
             is ContextedContainerStep -> handleContainerStep()
             else -> throw IllegalStateException()
