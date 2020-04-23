@@ -29,6 +29,10 @@ class VarsEquality: StringSpec({
         vars["a"] shouldBe "banana"
         vars["two"] shouldBe "three"
     }
+    "Cloning produces identical vars"{
+        makeMultiLevelVars().clone() shouldBe makeMultiLevelVars()
+        makeMultiLevelVars().clone() shouldNotBe makeOtherMultiLevelVars()
+    }
 })
 
 private fun makeMultiLevelVars():Vars{

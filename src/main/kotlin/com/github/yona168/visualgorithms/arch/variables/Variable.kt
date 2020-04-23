@@ -1,8 +1,13 @@
 package com.github.yona168.visualgorithms.arch.variables
 
+import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleIntegerProperty
+import javafx.beans.property.SimpleListProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.beans.value.ObservableValue
+import javafx.collections.FXCollections
+import javafx.collections.ObservableList
+import kotlin.properties.ObservableProperty
 
 
 /**
@@ -20,7 +25,14 @@ abstract class Variable<T> constructor(val name: String) {
     protected abstract fun setObservableValue(value: T)
 }
 
-private fun throwExec(): Nothing = throw UnsupportedOperationException("Can't do this! (Yet)!")
+class ListVariable<T>private constructor(name: String, value:SimpleListProperty<T>)
+    :Variable<ObservableList<T>>(name), MutableList<T> by value{
+    constructor(name: String, value: List<T>):this(name, SimpleListProperty(null, name, FXCollections.observableArrayList(value)))
+    override val observableProperty=value
+    override fun setObservableValue(value: ObservableList<T>) {
+        observableProperty.value=value
+    }
+}
 
 /**
  * Represents an [Int]
@@ -135,6 +147,14 @@ class StringVariable(name: String, value: String) : Variable<String>(name) {
     }
 }
 
+class BooleanVariable(name: String, value: Boolean):Variable<Boolean>(name){
+    override val observableProperty=SimpleBooleanProperty(null, name, value)
+    override fun setObservableValue(value: Boolean) {
+        observableProperty.value=value
+    }
+}
+
+
 /*
 operator fun SimpleIntegerProperty.plus(other: Int)=int(name, value+other)
 operator fun SimpleIntegerProperty.plus(other: SimpleIntegerProperty)=this.plus(other.value)
@@ -182,6 +202,8 @@ fun int(name: String, value: Int) =
  */
 fun string(name: String, value: String) =
     StringVariable(name, value)
+
+fun bool(name:String, value: Boolean)=BooleanVariable(name, value)
 
 val Int.v: IntVariable
     get() = int("Temp", this)
