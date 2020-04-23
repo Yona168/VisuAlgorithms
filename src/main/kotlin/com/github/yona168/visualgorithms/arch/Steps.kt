@@ -91,7 +91,7 @@ class If(val condition: Condition, val then: ContainerStep) : UncontextedStep() 
 class IfChain(val ifElseIfs: List<If>, val els: ContainerStep? = null) : UncontextedStep() {
     open class Builder(private val condition: Condition) {
         protected var elseIfs: List<If> = mutableListOf()
-        protected var els: ContainerStep? = null
+        private var els: ContainerStep? = null
         protected var currentIfCondition = condition
 
         fun elseIf(condition: Condition): ThenBuilder {

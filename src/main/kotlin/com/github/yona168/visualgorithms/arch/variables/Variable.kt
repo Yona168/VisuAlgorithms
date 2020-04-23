@@ -193,8 +193,11 @@ val String.v: StringVariable
  */
 typealias VarMap = MutableMap<String, Variable<*>>
 
-class Vars(private val parent: Vars? = null) {
-    private val myVars: VarMap = mutableMapOf()
+class Vars private constructor(private val parent: Vars? = null, myVars: VarMap?) {
+
+    constructor(parent: Vars? = null) : this(parent, null)
+
+    private val myVars: VarMap = myVars ?: mutableMapOf()
 
     private fun getOrDefault(key: String, default: Variable<*>): Variable<*> {
         return get(key) ?: default
@@ -220,13 +223,18 @@ class Vars(private val parent: Vars? = null) {
      * @param[value] The variable
      */
     operator fun set(key: String, value: Variable<*>) {
-        val oldValue = get(key)
-        if (myVars[key] != null) {
-            myVars[key] = value
-        } else if (parent?.get(key) != null) {
-            parent[key] = value
-        } else {
-            myVars[key] = value
+        val varHere = myVars[key]
+        val varParent = parent?.get(key)
+        when {
+            varHere != null -> {
+                myVars[key] = value
+            }
+            varParent != null -> {
+                parent?.set(key, value)
+            }
+            else -> {
+                myVars[key] = value
+            }
         }
     }
 
@@ -246,4 +254,27 @@ class Vars(private val parent: Vars? = null) {
         string(key, value)
     )
 
+    private fun getMapLevels():MutableList<VarMap>{
+        val levels: MutableList<VarMap> = mutableListOf() //From child to parent
+        var currentLevel: Vars? = this
+        do {
+            if (currentLevel == null) {
+                break
+            }
+            levels += currentLevel.myVars
+            currentLevel = currentLevel.parent
+        } while (true)
+        return levels
+    }
+    override fun equals(other: Any?)=other is Vars && this.getMapLevels() == other.getMapLevels()
+    fun clone(): Vars {
+        val levels=getMapLevels()
+        var bottomLevel = Vars(null, levels[levels.lastIndex])
+        levels.removeAt(levels.lastIndex)
+        while (levels.isNotEmpty()) {
+            bottomLevel = Vars(bottomLevel, levels[levels.lastIndex])
+            levels.removeAt(levels.lastIndex)
+        }
+        return bottomLevel
+    }
 }

@@ -12,6 +12,6 @@ fun algorithm(main: ParentAction)=algorithm(null, main)
 fun run(containerStep: ContextedContainerStep) {
     val runner = ContainerRunner(containerStep)
     while (runner.isDone.not()) {
-        runner.next()
+        val result=runner.next()
     }
 }

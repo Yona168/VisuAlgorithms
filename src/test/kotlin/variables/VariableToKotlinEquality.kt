@@ -5,7 +5,7 @@ import com.github.yona168.visualgorithms.arch.variables.string
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.*
-class VariableEquality: StringSpec({
+class VariableToKotlinEquality: StringSpec({
     "Int variable equals Int"{
         checkAll<Int>{a->
             int("a", a) shouldBe a
