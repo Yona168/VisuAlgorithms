@@ -7,7 +7,6 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.beans.value.ObservableValue
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
-import kotlin.properties.ObservableProperty
 
 
 /**
@@ -25,12 +24,20 @@ abstract class Variable<T> constructor(val name: String) {
     protected abstract fun setObservableValue(value: T)
 }
 
-class ListVariable<T>private constructor(name: String, value:SimpleListProperty<T>)
-    :Variable<ObservableList<T>>(name), MutableList<T> by value{
-    constructor(name: String, value: List<T>):this(name, SimpleListProperty(null, name, FXCollections.observableArrayList(value)))
-    override val observableProperty=value
+class ListVariable<T> private constructor(name: String, value: SimpleListProperty<T>) :
+    Variable<ObservableList<T>>(name), MutableList<T> by value {
+    constructor(name: String, value: List<T>) : this(
+        name,
+        SimpleListProperty(null, name, FXCollections.observableArrayList(value))
+    )
+
+    override val observableProperty = value
     override fun setObservableValue(value: ObservableList<T>) {
-        observableProperty.value=value
+        observableProperty.value = value
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return (other is List<*> && other.slice(0..other.lastIndex) == value.slice(0..lastIndex))
     }
 }
 
@@ -147,50 +154,15 @@ class StringVariable(name: String, value: String) : Variable<String>(name) {
     }
 }
 
-class BooleanVariable(name: String, value: Boolean):Variable<Boolean>(name){
-    override val observableProperty=SimpleBooleanProperty(null, name, value)
+class BooleanVariable(name: String, value: Boolean) : Variable<Boolean>(name) {
+    override val observableProperty = SimpleBooleanProperty(null, name, value)
     override fun setObservableValue(value: Boolean) {
-        observableProperty.value=value
+        observableProperty.value = value
     }
+
+    override fun equals(other: Any?)=(other is BooleanVariable && value==other.value)||(other is Boolean && value==other)
 }
 
-
-/*
-operator fun SimpleIntegerProperty.plus(other: Int)=int(name, value+other)
-operator fun SimpleIntegerProperty.plus(other: SimpleIntegerProperty)=this.plus(other.value)
-operator fun SimpleIntegerProperty.plusAssign(other:Int){
-    this.value+=other
-}
-operator fun SimpleIntegerProperty.plusAssign(other:SimpleIntegerProperty)=this.plusAssign(other.value)
-
-operator fun SimpleIntegerProperty.minus(other:Int)=int(name, value-other)
-operator fun SimpleIntegerProperty.minus(other: SimpleIntegerProperty)=this.minus(other.value)
-operator fun SimpleIntegerProperty.minusAssign(other:Int){
-    this.value-=other
-}
-operator fun SimpleIntegerProperty.minusAssign(other:SimpleIntegerProperty)=this.minusAssign(other.value)
-
-operator fun SimpleIntegerProperty.times(other:Int)=int(name, value*other)
-operator fun SimpleIntegerProperty.times(other:SimpleIntegerProperty)=this.times(other.value)
-operator fun SimpleIntegerProperty.timesAssign(other:Int){
-    value+=other
-}
-operator fun SimpleIntegerProperty.timesAssign(other:SimpleIntegerProperty)=this.timesAssign(other.value)
-
-operator fun SimpleIntegerProperty.div(other:Int)=int(name, value/other)
-operator fun SimpleIntegerProperty.div(other: SimpleIntegerProperty)=this.div(other.value)
-operator fun SimpleIntegerProperty.divAssign(other:Int){
-    this.value/=other
-}
-operator fun SimpleIntegerProperty.divAssign(other:SimpleIntegerProperty)=this.divAssign(other.value)
-
-operator fun SimpleIntegerProperty.rem(other:Int)=int(name, value%other)
-operator fun SimpleIntegerProperty.rem(other: SimpleIntegerProperty)=this.div(other.value)
-operator fun SimpleIntegerProperty.remAssign(other:Int){
-    this.value%=other
-}
-operator fun SimpleIntegerProperty.remAssign(other: SimpleIntegerProperty)=this.remAssign(other.value)
-*/
 /**
  * Convenience function for creating an [IntVariable]
  */
@@ -203,12 +175,17 @@ fun int(name: String, value: Int) =
 fun string(name: String, value: String) =
     StringVariable(name, value)
 
-fun bool(name:String, value: Boolean)=BooleanVariable(name, value)
+fun bool(name: String, value: Boolean) = BooleanVariable(name, value)
+fun <T> list(name: String, vararg elements: T) = ListVariable(name, mutableListOf(*elements))
 
 val Int.v: IntVariable
     get() = int("Temp", this)
 val String.v: StringVariable
     get() = string("Temp", this)
+val List<*>.v: ListVariable<*>
+    get() = list("Temp", this)
+val Boolean.v: BooleanVariable
+    get() = bool("Temp", this)
 /**
  * Represents the vars available within a scope.
  * @param[parent] vars from an outer scope that can also be accessed
@@ -260,23 +237,12 @@ class Vars private constructor(private val parent: Vars? = null, myVars: VarMap?
         }
     }
 
-    /**
-     * Convenience function
-     */
-    operator fun set(key: String, value: Int) = set(
-        key,
-        int(key, value)
-    )
+    operator fun set(key: String, value: Int) = set(key, int(key, value))
+    operator fun set(key: String, value: String) = set(key, string(key, value))
+    operator fun set(key: String, value: Boolean) = set(key, bool(key, value))
+    operator fun <T> set(key: String, values: List<T>) = set(key, list(key, values))
 
-    /**
-     * Convenience function
-     */
-    operator fun set(key: String, value: String) = set(
-        key,
-        string(key, value)
-    )
-
-    private fun getMapLevels():MutableList<VarMap>{
+    private fun getMapLevels(): MutableList<VarMap> {
         val levels: MutableList<VarMap> = mutableListOf() //From child to parent
         var currentLevel: Vars? = this
         do {
@@ -288,9 +254,10 @@ class Vars private constructor(private val parent: Vars? = null, myVars: VarMap?
         } while (true)
         return levels
     }
-    override fun equals(other: Any?)=other is Vars && this.getMapLevels() == other.getMapLevels()
+
+    override fun equals(other: Any?) = other is Vars && this.getMapLevels() == other.getMapLevels()
     fun clone(): Vars {
-        val levels=getMapLevels()
+        val levels = getMapLevels()
         var bottomLevel = Vars(null, levels[levels.lastIndex])
         levels.removeAt(levels.lastIndex)
         while (levels.isNotEmpty()) {
