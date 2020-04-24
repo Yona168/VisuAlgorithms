@@ -132,8 +132,8 @@ class ContextedIf(private val iff: If, vars: Vars?) : ParentStep(vars, VarUsageS
 
 class ContextedIfChain(
     private val parentVars: Vars?,
-    private val usageStrategy: VarUsageStrategy,
-    private val ifChain: IfChain
+    usageStrategy: VarUsageStrategy,
+    ifChain: IfChain
 ) : ParentStep(parentVars, usageStrategy) {
     val contextedIfs = ifChain.ifElseIfs.map { ContextedIf(it, parentVars) }
     val contextedElse: ContextedContainerStep? =
@@ -149,6 +149,25 @@ class ContextedIfChain(
 
 }
 
+class For(val initialDesc: String,val initial: BarrenAction, val condition: Condition, val doAction: ParentAction):
+UncontextedStep(){
+    override fun toContexted(parentVars: Vars?, varUsageStrategy: VarUsageStrategy): Step {
+        return ContextedFor(this, parentVars)
+    }
+
+}
+
+class ContextedFor(val forr: For, val parentVars: Vars?):ParentStep(parentVars, VarUsageStrategy.USE_AS_PARENT) {
+    override fun steps(): List<Step> {
+        val stepList= mutableListOf<Step>()
+        stepList+= ContextedActionStep(parentVars,VarUsageStrategy.USE_AS_PARENT,forr.initialDesc,forr.initial)
+        stepList+=ContextedCheckCondition(forr.condition,parentVars)
+        val container=ContainerStep()
+        forr.doAction(container)
+        stepList+=ContextedContainerStep(container, parentVars, VarUsageStrategy.USE_AS_PARENT)
+        return stepList
+    }
+}
 
 fun iff(condition: Condition) = IfChain.ThenBuilder(condition)
 
