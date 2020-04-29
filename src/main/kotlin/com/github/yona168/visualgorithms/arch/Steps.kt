@@ -4,30 +4,20 @@ import com.github.yona168.visualgorithms.arch.variables.HasVars
 import com.github.yona168.visualgorithms.arch.variables.Vars
 
 
-enum class VarUsageStrategy {
-    USE_AS_PARENT,
-    USE_AS_SAME_LEVEL
-}
 
-sealed class Step(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) : HasVars {
-    override val vars = when (varUsageStrategy) {
-        VarUsageStrategy.USE_AS_PARENT -> Vars(
-            parentVars
-        )
-        VarUsageStrategy.USE_AS_SAME_LEVEL -> parentVars ?: Vars()
-    }
+sealed class Step(parentVars: Vars?) : HasVars {
+    override val vars = parentVars?:Vars()
 }
 
 sealed class UncontextedStep {
-    abstract fun toContexted(parentVars: Vars?, varUsageStrategy: VarUsageStrategy): Step
+    abstract fun toContexted(parentVars: Vars?): Step
 }
 
-abstract class ParentStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) : Step(parentVars, varUsageStrategy) {
+abstract class ParentStep(parentVars: Vars?) : Step(parentVars) {
     abstract fun steps(): List<Step>
 }
 
-abstract class BarrenStep(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) :
-    Step(parentVars, varUsageStrategy)
+abstract class BarrenStep(parentVars: Vars?) : Step(parentVars)
 
 
 class ContainerStep {
@@ -46,16 +36,10 @@ class ContainerStep {
     }
 }
 
-class ContextedContainerStep(containerStep: ContainerStep, parentVars: Vars?, varUsageStrategy: VarUsageStrategy) :
-    ParentStep(parentVars, varUsageStrategy) {
-    private val children = containerStep.children.map { it.toContexted(parentVars, varUsageStrategyFor(it)) }
+class ContextedContainerStep(containerStep: ContainerStep, parentVars: Vars?) :
+    ParentStep(parentVars) {
+    private val children = containerStep.children.map { it.toContexted(parentVars) }
     override fun steps() = children
-
-    private fun varUsageStrategyFor(uncontextedStep: UncontextedStep) = when (uncontextedStep) {
-        is ActionStep -> VarUsageStrategy.USE_AS_SAME_LEVEL
-        is IfChain -> VarUsageStrategy.USE_AS_PARENT
-        else -> VarUsageStrategy.USE_AS_PARENT
-    }
 }
 
 typealias BarrenAction = BarrenStep.() -> Unit
@@ -64,19 +48,17 @@ typealias ParentAction = ContainerStep.() -> Unit
 
 //Simple action
 class ActionStep(val desc: String, val barrenAction: BarrenAction) : UncontextedStep() {
-    override fun toContexted(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) =
-        ContextedActionStep(parentVars, varUsageStrategy, desc, barrenAction)
+    override fun toContexted(parentVars: Vars?) =
+        ContextedActionStep(parentVars, desc, barrenAction)
 }
 
 class ContextedActionStep(
     parentVars: Vars?,
-    usageStrategy: VarUsageStrategy,
     val desc: String,
     val barrenAction: BarrenAction
-) : BarrenStep(parentVars, usageStrategy) {
-    constructor(parentVars: Vars?, usageStrategy: VarUsageStrategy, actionStep: ActionStep) : this(
+) : BarrenStep(parentVars) {
+    constructor(parentVars: Vars?, actionStep: ActionStep) : this(
         parentVars,
-        usageStrategy,
         actionStep.desc,
         actionStep.barrenAction
     )
@@ -84,12 +66,12 @@ class ContextedActionStep(
 
 //If and if chains
 class If(val condition: Condition, val then: ContainerStep) : UncontextedStep() {
-    override fun toContexted(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) =
+    override fun toContexted(parentVars: Vars?) =
         ContextedIf(this, parentVars)
 }
 
 class IfChain(val ifElseIfs: List<If>, val els: ContainerStep? = null) : UncontextedStep() {
-    open class Builder(private val condition: Condition) {
+    open class Builder(condition: Condition) {
         protected var elseIfs: List<If> = mutableListOf()
         private var els: ContainerStep? = null
         protected var currentIfCondition = condition
@@ -115,16 +97,16 @@ class IfChain(val ifElseIfs: List<If>, val els: ContainerStep? = null) : Unconte
         }
     }
 
-    override fun toContexted(parentVars: Vars?, varUsageStrategy: VarUsageStrategy) =
-        ContextedIfChain(parentVars, varUsageStrategy, this)
+    override fun toContexted(parentVars: Vars?) =
+        ContextedIfChain(parentVars,this)
 }
 
 class ContextedCheckCondition(val condition: Condition, parentVars: Vars?) :
-    BarrenStep(parentVars, VarUsageStrategy.USE_AS_PARENT) {
+    BarrenStep(parentVars) {
 }
 
-class ContextedIf(private val iff: If, vars: Vars?) : ParentStep(vars, VarUsageStrategy.USE_AS_PARENT) {
-    private val thenStep: Step = ContextedContainerStep(iff.then, vars, VarUsageStrategy.USE_AS_PARENT)
+class ContextedIf(private val iff: If, vars: Vars?) : ParentStep(vars) {
+    private val thenStep: Step = ContextedContainerStep(iff.then, vars)
     private val contextedCheckCondition: Step = ContextedCheckCondition(iff.condition, vars)
     override fun steps() = listOf(contextedCheckCondition, thenStep)
 
@@ -132,13 +114,12 @@ class ContextedIf(private val iff: If, vars: Vars?) : ParentStep(vars, VarUsageS
 
 class ContextedIfChain(
     private val parentVars: Vars?,
-    usageStrategy: VarUsageStrategy,
     ifChain: IfChain
-) : ParentStep(parentVars, usageStrategy) {
+) : ParentStep(parentVars) {
     val contextedIfs = ifChain.ifElseIfs.map { ContextedIf(it, parentVars) }
     val contextedElse: ContextedContainerStep? =
         if (ifChain.els == null) null
-        else ContextedContainerStep(ifChain.els, parentVars, VarUsageStrategy.USE_AS_PARENT)
+        else ContextedContainerStep(ifChain.els, parentVars)
 
     override fun steps(): List<Step> {
         val stepList = mutableListOf<Step>()
@@ -151,20 +132,20 @@ class ContextedIfChain(
 
 class For(val initialDesc: String,val initial: BarrenAction, val condition: Condition, val doAction: ParentAction):
 UncontextedStep(){
-    override fun toContexted(parentVars: Vars?, varUsageStrategy: VarUsageStrategy): Step {
+    override fun toContexted(parentVars: Vars?): Step {
         return ContextedFor(this, parentVars)
     }
 
 }
 
-class ContextedFor(val forr: For, val parentVars: Vars?):ParentStep(parentVars, VarUsageStrategy.USE_AS_PARENT) {
+class ContextedFor(val forr: For, val parentVars: Vars?):ParentStep(parentVars) {
     override fun steps(): List<Step> {
         val stepList= mutableListOf<Step>()
-        stepList+= ContextedActionStep(parentVars,VarUsageStrategy.USE_AS_PARENT,forr.initialDesc,forr.initial)
+        stepList+= ContextedActionStep(parentVars,forr.initialDesc,forr.initial)
         stepList+=ContextedCheckCondition(forr.condition,parentVars)
         val container=ContainerStep()
         forr.doAction(container)
-        stepList+=ContextedContainerStep(container, parentVars, VarUsageStrategy.USE_AS_PARENT)
+        stepList+=ContextedContainerStep(container, parentVars)
         return stepList
     }
 }

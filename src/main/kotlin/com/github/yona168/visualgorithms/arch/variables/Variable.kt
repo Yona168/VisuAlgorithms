@@ -37,7 +37,7 @@ class ListVariable<T> private constructor(name: String, value: SimpleListPropert
     }
 
     override fun equals(other: Any?): Boolean {
-        return (other is List<*> && other.slice(0..other.lastIndex) == value.slice(0..lastIndex))
+        return (other is List<*> && other == value)||(other is ListVariable<*> && other.value==value)
     }
 }
 
@@ -192,25 +192,9 @@ val Boolean.v: BooleanVariable
  */
 typealias VarMap = MutableMap<String, Variable<*>>
 
-class Vars private constructor(private val parent: Vars? = null, myVars: VarMap?) {
-
-    constructor(parent: Vars? = null) : this(parent, null)
+class Vars(myVars: VarMap?=null) {
 
     private val myVars: VarMap = myVars ?: mutableMapOf()
-
-    private fun getOrDefault(key: String, default: Variable<*>): Variable<*> {
-        return get(key) ?: default
-    }
-
-    /**
-     * Gets a variable based on its name. If no variable is found in the current scope, moves up to the next highest scope,
-     * and so on.
-     * @param[key] The name of the variable to find
-     * @return the [Variable], or null if not found
-     */
-    operator fun get(key: String): Variable<*>? {
-        return myVars.getOrDefault(key, parent?.get(key))
-    }
 
     /**
      * Sets a variable name to a [Variable]. The scope at which this is set depends upon the following:
@@ -222,48 +206,16 @@ class Vars private constructor(private val parent: Vars? = null, myVars: VarMap?
      * @param[value] The variable
      */
     operator fun set(key: String, value: Variable<*>) {
-        val varHere = myVars[key]
-        val varParent = parent?.get(key)
-        when {
-            varHere != null -> {
-                myVars[key] = value
-            }
-            varParent != null -> {
-                parent?.set(key, value)
-            }
-            else -> {
-                myVars[key] = value
-            }
-        }
+        myVars[key]=value
     }
+    operator fun get(key: String)=myVars[key]
 
     operator fun set(key: String, value: Int) = set(key, int(key, value))
     operator fun set(key: String, value: String) = set(key, string(key, value))
     operator fun set(key: String, value: Boolean) = set(key, bool(key, value))
     operator fun <T> set(key: String, values: List<T>) = set(key, list(key, values))
 
-    private fun getMapLevels(): MutableList<VarMap> {
-        val levels: MutableList<VarMap> = mutableListOf() //From child to parent
-        var currentLevel: Vars? = this
-        do {
-            if (currentLevel == null) {
-                break
-            }
-            levels += currentLevel.myVars
-            currentLevel = currentLevel.parent
-        } while (true)
-        return levels
-    }
+    override fun equals(other: Any?) = other is Vars && this.myVars==other.myVars
 
-    override fun equals(other: Any?) = other is Vars && this.getMapLevels() == other.getMapLevels()
-    fun clone(): Vars {
-        val levels = getMapLevels()
-        var bottomLevel = Vars(null, levels[levels.lastIndex])
-        levels.removeAt(levels.lastIndex)
-        while (levels.isNotEmpty()) {
-            bottomLevel = Vars(bottomLevel, levels[levels.lastIndex])
-            levels.removeAt(levels.lastIndex)
-        }
-        return bottomLevel
-    }
+    fun clone()=Vars(myVars.toMutableMap())
 }
