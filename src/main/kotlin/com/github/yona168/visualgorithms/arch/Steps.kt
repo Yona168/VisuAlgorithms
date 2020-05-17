@@ -4,9 +4,8 @@ import com.github.yona168.visualgorithms.arch.variables.HasVars
 import com.github.yona168.visualgorithms.arch.variables.Vars
 
 
-
 sealed class Step(parentVars: Vars?) : HasVars {
-    override val vars = parentVars?:Vars()
+    override val vars = parentVars ?: Vars()
 }
 
 sealed class UncontextedStep {
@@ -27,13 +26,17 @@ class ContainerStep {
         children += actionStep
     }
 
-    infix fun add(iff: IfChain.Builder) {
+    infix fun addIf(iff: IfChain.Builder) {
         children += iff.build()
     }
 
-    infix fun add(iff: () -> IfChain.Builder) {
-        add(iff())
+    infix fun addIf(iff: () -> IfChain.Builder) {
+        addIf(iff())
     }
+    infix fun addFor(forr: For){
+        children+=forr
+    }
+    infix fun addFor(forr: ()->For)= addFor(forr())
 }
 
 class ContextedContainerStep(containerStep: ContainerStep, parentVars: Vars?) :
@@ -98,7 +101,7 @@ class IfChain(val ifElseIfs: List<If>, val els: ContainerStep? = null) : Unconte
     }
 
     override fun toContexted(parentVars: Vars?) =
-        ContextedIfChain(parentVars,this)
+        ContextedIfChain(parentVars, this)
 }
 
 class ContextedCheckCondition(val condition: Condition, parentVars: Vars?) :
@@ -130,25 +133,37 @@ class ContextedIfChain(
 
 }
 
-class For(val initialDesc: String,val initial: BarrenAction, val condition: Condition, val doAction: ParentAction):
-UncontextedStep(){
+class For(
+    val initialDesc: String,
+    val initial: BarrenAction,
+    val condition: Condition,
+    val afterDesc: String,
+    val afterAction: BarrenAction,
+    val doAction: ParentAction
+) :
+    UncontextedStep() {
     override fun toContexted(parentVars: Vars?): Step {
         return ContextedFor(this, parentVars)
     }
 
 }
 
-class ContextedFor(val forr: For, val parentVars: Vars?):ParentStep(parentVars) {
+class ContextedFor(val forr: For, val parentVars: Vars?) : ParentStep(parentVars) {
     override fun steps(): List<Step> {
-        val stepList= mutableListOf<Step>()
-        stepList+= ContextedActionStep(parentVars,forr.initialDesc,forr.initial)
-        stepList+=ContextedCheckCondition(forr.condition,parentVars)
-        val container=ContainerStep()
+        val stepList = mutableListOf<Step>()
+        stepList += ContextedActionStep(parentVars, forr.initialDesc, forr.initial)
+        stepList += ContextedCheckCondition(forr.condition, parentVars)
+        val container = ContainerStep()
         forr.doAction(container)
-        stepList+=ContextedContainerStep(container, parentVars)
+        stepList += ContextedContainerStep(container, parentVars)
+        stepList += ContextedActionStep(parentVars, forr.afterDesc, forr.afterAction)
         return stepList
     }
 }
 
 fun iff(condition: Condition) = IfChain.ThenBuilder(condition)
+fun a(desc: String, action: BarrenAction) = ActionStep(desc, action)
+fun forr(init: ActionStep, condition: Condition, after: ActionStep, loop: ParentAction) = For(
+    init.desc, init.barrenAction, condition, after.desc, after.barrenAction, loop
+)
 

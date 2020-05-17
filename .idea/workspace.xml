@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07db29b8-2fdd-4e60-96cf-d48be0124bb5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/kotlin/ForTest.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Algorithm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Algorithm.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Steps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Steps.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/variables/HasVars.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/variables/HasVars.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/variables/Variable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/variables/Variable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/variables/VarsTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/variables/VarsTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/IfTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/IfTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,6 +80,25 @@
     </option>
   </component>
   <component name="RunManager" selected="Gradle.VisuAlgorithms [test]">
+    <configuration name="ForTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;ForTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="IfTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -134,25 +156,6 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="VisuAlgorithms [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" value="" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
     <configuration name="VisuAlgorithms [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -175,10 +178,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.VisuAlgorithms [test]" />
+        <item itemvalue="Gradle.ForTest" />
         <item itemvalue="Gradle.VarsEquality" />
         <item itemvalue="Gradle.Temp" />
         <item itemvalue="Gradle.IfTest" />
-        <item itemvalue="Gradle.VisuAlgorithms [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -200,64 +203,64 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="121" y="0" key="#Project_Structure/0.0.1280.680@0.0.1280.680" timestamp="1587308639979" />
-    <state x="463" y="106" key="#com.intellij.ide.util.MemberChooser" timestamp="1587740318969">
+    <state x="463" y="106" key="#com.intellij.ide.util.MemberChooser" timestamp="1588171189086">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="463" y="106" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1587740318969" />
+    <state x="463" y="106" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1588171189086" />
     <state x="556" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585349766707" />
     <state x="321" y="77" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1587264017364">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="321" y="77" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1280.680@0.0.1280.680" timestamp="1587264017364" />
-    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1587152106448">
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1589584187924">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.680@0.0.1280.680" timestamp="1587152106448" />
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.680@0.0.1280.680" timestamp="1589584187924" />
     <state x="262" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1585456201176" />
     <state x="420" y="92" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1587272887830">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="420" y="92" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1587272887830" />
-    <state x="792" y="0" key="#xdebugger.evaluate" timestamp="1587410334824">
+    <state x="792" y="0" key="#xdebugger.evaluate" timestamp="1589751770895">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="792" y="0" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1587410334823" />
-    <state width="1237" height="2" key="GridCell.Tab.0.bottom" timestamp="1588170665350">
+    <state x="792" y="0" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1589751770895" />
+    <state width="1237" height="164" key="GridCell.Tab.0.bottom" timestamp="1589752832645">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="2" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1588170665350" />
+    <state width="1237" height="164" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1589752832645" />
     <state width="1493" height="190" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="2" key="GridCell.Tab.0.center" timestamp="1588170665349">
+    <state width="1237" height="164" key="GridCell.Tab.0.center" timestamp="1589752832644">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="2" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1588170665349" />
+    <state width="1237" height="164" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1589752832644" />
     <state width="1493" height="190" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="2" key="GridCell.Tab.0.left" timestamp="1588170665349">
+    <state width="1237" height="164" key="GridCell.Tab.0.left" timestamp="1589752832643">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="2" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1588170665349" />
+    <state width="1237" height="164" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1589752832643" />
     <state width="1493" height="190" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="2" key="GridCell.Tab.0.right" timestamp="1588170665349">
+    <state width="1237" height="164" key="GridCell.Tab.0.right" timestamp="1589752832645">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="2" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1588170665349" />
+    <state width="1237" height="164" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1589752832645" />
     <state width="1493" height="190" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="232" key="GridCell.Tab.1.bottom" timestamp="1587413626188">
+    <state width="1237" height="284" key="GridCell.Tab.1.bottom" timestamp="1589752826825">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="232" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1587413626188" />
-    <state width="1237" height="232" key="GridCell.Tab.1.center" timestamp="1587413626188">
+    <state width="1237" height="284" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1589752826825" />
+    <state width="1237" height="284" key="GridCell.Tab.1.center" timestamp="1589752826825">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="232" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1587413626188" />
-    <state width="1237" height="232" key="GridCell.Tab.1.left" timestamp="1587413626187">
+    <state width="1237" height="284" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1589752826825" />
+    <state width="1237" height="284" key="GridCell.Tab.1.left" timestamp="1589752826825">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="232" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1587413626187" />
-    <state width="1237" height="232" key="GridCell.Tab.1.right" timestamp="1587413626188">
+    <state width="1237" height="284" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1589752826825" />
+    <state width="1237" height="284" key="GridCell.Tab.1.right" timestamp="1589752826825">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="232" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1587413626188" />
+    <state width="1237" height="284" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1589752826825" />
     <state x="208" y="0" key="SettingsEditor" timestamp="1587408702638">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -277,13 +280,25 @@
     </state>
     <state x="354" y="154" width="672" height="559" key="run.anything.popup/0.0.1280.680@0.0.1280.680" timestamp="1585751895199" />
     <state x="425" y="187" width="672" height="677" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1585346488509" />
-    <state x="359" y="120" width="672" height="560" key="search.everywhere.popup" timestamp="1587309437533">
+    <state x="359" y="120" width="672" height="560" key="search.everywhere.popup" timestamp="1589584052185">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="359" y="120" width="672" height="560" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1587309437533" />
+    <state x="359" y="120" width="672" height="560" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1589584052185" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585349175894" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/test/kotlin/ForTest.kt</url>
+          <line>13</line>
+          <properties>
+            <option name="lambda-ordinal" value="0" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo typeName="com.github.yona168.visualgorithms.arch.runner.ContainerRunner" fieldName="backingSubRunner" />

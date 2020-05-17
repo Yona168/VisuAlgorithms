@@ -8,7 +8,7 @@ class IfTest : StringSpec({
     "If tests true conditions successfully"{
         var bool = false
         val program = algorithm {
-            add {
+            addIf {
                 iff(c("True") { true }).then {
                     add("Change bool to true") { bool = true }
                 }
@@ -21,7 +21,7 @@ class IfTest : StringSpec({
     "If tests false conditions successfully"{
         var bool = true
         val program = algorithm {
-            add {
+            addIf {
                 iff(c("False") { false }).then {
                     add("Change bool to false") { bool = false }
                 }
@@ -39,7 +39,7 @@ class IfTest : StringSpec({
                 initialVars[initial.first] = initial.second
             }
             return algorithm(initialVars) {
-                add {
+                addIf {
                     iff(c("x is apple") { vars["x"] == "apple".v }).then {
                         add("set str to apple") { str = "apple" }
                     }.elseIf(c("z is banana") { vars["z"] == "banana".v }).then {

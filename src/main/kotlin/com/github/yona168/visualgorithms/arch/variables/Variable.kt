@@ -44,7 +44,7 @@ class ListVariable<T> private constructor(name: String, value: SimpleListPropert
 /**
  * Represents an [Int]
  */
-class IntVariable(name: String, value: Int) : Variable<Int>(name) {
+class IntVariable(name: String, value: Int) : Variable<Int>(name), Comparable<IntVariable> {
     override val observableProperty = SimpleIntegerProperty(null, name, value)
     operator fun plus(other: IntVariable) =
         int(name, this.value + other.value)
@@ -126,6 +126,8 @@ class IntVariable(name: String, value: Int) : Variable<Int>(name) {
     override fun setObservableValue(value: Int) {
         observableProperty.value = value
     }
+
+    override fun compareTo(other: IntVariable)=value.compareTo(other.value)
 }
 
 /**
