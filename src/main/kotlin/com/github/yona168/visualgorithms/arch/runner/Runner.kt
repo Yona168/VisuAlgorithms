@@ -44,6 +44,7 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
                         is ContextedIfChain -> IfChainRunner(current)
                         is ContextedIf -> IfRunner(current)
                         is ContextedFor -> ForRunner(current)
+                        is ContextedWhile->WhileRunner(current)
                         else -> throw IllegalStateException()
                     }
                     backingSubRunnerIndex = stepIndex
@@ -187,6 +188,27 @@ class ForRunner(parentStep: ContextedFor) : AbstractRunner(parentStep) {
         }
     }
 
+}
+
+class WhileRunner(parentStep: ContextedWhile):AbstractRunner(parentStep){
+    override fun next(): RunResult {
+        if(stepIndex==-1)stepIndex++
+        val current=thisLevelCurrent
+        when(current){
+            is ContextedCheckCondition->{
+                val done=current.condition.evaluate(current).not()
+                if(done){
+                    this.markAsDone()
+                }
+                stepIndex++
+                return SuccessDesc(current,done)
+            }
+            is ContextedContainerStep->{
+                return handleContainerStep { resetSubRunner() }.also { stepIndex=0 }
+            }
+            else-> throw IllegalStateException()
+        }
+    }
 }
 
 

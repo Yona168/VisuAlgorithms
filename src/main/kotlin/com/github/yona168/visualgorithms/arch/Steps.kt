@@ -4,7 +4,7 @@ import com.github.yona168.visualgorithms.arch.variables.HasVars
 import com.github.yona168.visualgorithms.arch.variables.Vars
 
 
-sealed class Step(parentVars: Vars?) : HasVars {
+sealed class Step(parentVars: Vars?) : HasVars() {
     override val vars = parentVars ?: Vars()
 }
 
@@ -33,10 +33,17 @@ class ContainerStep {
     infix fun addIf(iff: () -> IfChain.Builder) {
         addIf(iff())
     }
-    infix fun addFor(forr: For){
-        children+=forr
+
+    infix fun addFor(forr: For) {
+        children += forr
     }
-    infix fun addFor(forr: ()->For)= addFor(forr())
+
+    infix fun addFor(forr: () -> For) = addFor(forr())
+
+    infix fun addWhile(whil: While){
+        children+=whil
+    }
+    infix fun addWhile(whil: ()->While)=addWhile(whil())
 }
 
 class ContextedContainerStep(containerStep: ContainerStep, parentVars: Vars?) :
@@ -161,9 +168,23 @@ class ContextedFor(val forr: For, val parentVars: Vars?) : ParentStep(parentVars
     }
 }
 
+class While(val condition: Condition, val action: ParentAction) : UncontextedStep() {
+    override fun toContexted(parentVars: Vars?)=ContextedWhile(this, parentVars)
+}
+
+class ContextedWhile(private val whil: While, vars: Vars?) : ParentStep(vars) {
+    override fun steps(): List<Step> {
+        return listOf(ContextedCheckCondition(whil.condition, vars),
+            ContextedContainerStep(ContainerStep().apply(whil.action), vars)
+        )
+    }
+
+}
+
 fun iff(condition: Condition) = IfChain.ThenBuilder(condition)
 fun a(desc: String, action: BarrenAction) = ActionStep(desc, action)
 fun forr(init: ActionStep, condition: Condition, after: ActionStep, loop: ParentAction) = For(
     init.desc, init.barrenAction, condition, after.desc, after.barrenAction, loop
 )
+fun whil(condition: Condition, action: ParentAction)=While(condition, action)
 
