@@ -4,38 +4,19 @@ import kotlin.reflect.KProperty
 
 abstract class HasVars {
     abstract val vars: Vars
-    var i: IntVariable by IntDelegate()
-    var n: IntVariable by IntDelegate()
+    var i: Int by Delegate()
+    var n: Int by Delegate()
+    var str: String by Delegate()
 
-    companion object{
-        private class IntDelegate{
-            operator fun getValue(thisRef:HasVars, property: KProperty<*>):IntVariable {
-                val varName=property.name
-                if(thisRef.vars[varName]==null){
-                    thisRef.vars[varName]=0
-                }
-                return thisRef.vars[varName] as IntVariable
+    companion object {
+        private class Delegate<T> {
+            operator fun getValue(thisRef: HasVars, property: KProperty<*>): T {
+                val varName = property.name
+                return thisRef.vars[varName] as T
             }
-            operator fun setValue(thisRef: HasVars, property: KProperty<*>, value: IntVariable){
-                thisRef.vars[property.name]=value
-            }
-            operator fun setValue(thisRef: HasVars, property: KProperty<*>, value: Int){
-                thisRef.vars[property.name]=value.v
-            }
-        }
-        private class StringDelegate{
-            operator fun getValue(thisRef: HasVars, property: KProperty<*>):StringVariable{
-                val varName=property.name
-                if(thisRef.vars[varName]==null){
-                    thisRef.vars[varName]=""
-                }
-                return thisRef.vars[varName] as StringVariable
-            }
-            operator fun setValue(thisRef: HasVars, property: KProperty<*>, value:StringVariable){
-                thisRef.vars[property.name]=value
-            }
-            operator fun setValue(thisRef: HasVars, property: KProperty<*>, value:String){
-                thisRef.vars[property.name]=value
+
+            operator fun setValue(thisRef: HasVars, property: KProperty<*>, value: T) {
+                thisRef.vars[property.name] = value as Any
             }
         }
     }

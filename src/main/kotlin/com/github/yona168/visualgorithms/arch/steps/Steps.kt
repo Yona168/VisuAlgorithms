@@ -106,13 +106,3 @@ class While(private val whil: UncontextedWhile, vars: Vars?) : ParentStep(vars) 
 
 }
 
-fun iff(condition: Condition) = UncontextedIfChain.ThenBuilder(condition)
-fun a(desc: String, action: PlainAction) =
-    UncontextedAction(desc, action)
-fun forr(init: UncontextedAction, condition: Condition, after: UncontextedAction, loop: ParentAction) =
-    UncontextedFor(
-        init.desc, init.plainAction, condition, after.desc, after.plainAction, loop
-    )
-fun whil(condition: Condition, action: ParentAction)=
-    UncontextedWhile(condition, action)
-

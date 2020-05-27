@@ -1,6 +1,6 @@
 package com.github.yona168.visualgorithms.arch.steps
 
-import com.github.yona168.visualgorithms.arch.*
+import com.github.yona168.visualgorithms.arch.Condition
 import com.github.yona168.visualgorithms.arch.variables.Vars
 
 sealed class UncontextedStep {
@@ -72,39 +72,66 @@ class UncontextedFor(
 }
 
 class UncontextedWhile(val condition: Condition, val action: ParentAction) : UncontextedStep() {
-    override fun toContexted(parentVars: Vars?)=
+    override fun toContexted(parentVars: Vars?) =
         While(this, parentVars)
 }
 
-class ContainerStep:UncontextedStep() {
+class ContainerStep : UncontextedStep() {
     val children = mutableListOf<UncontextedStep>()
+    private var currentIfs = mutableListOf<UncontextedIf>()
+
     fun add(desc: String, plainAction: PlainAction) = add(
         UncontextedAction(
             desc,
             plainAction
         )
     )
-    infix fun add(actionStep: UncontextedAction) {
+
+    fun add(actionStep: UncontextedStep) {
         children += actionStep
     }
 
-    infix fun addIf(iff: UncontextedIfChain.Builder) {
-        children += iff.build()
+    fun forr(init: UncontextedAction, condition: Condition, after: UncontextedAction, loop: ParentAction) =
+        resetAndAdd(
+            UncontextedFor(
+                init.desc, init.plainAction, condition, after.desc, after.plainAction, loop
+            )
+        )
+
+    fun whil(condition: Condition, action: ParentAction) =
+        resetAndAdd(UncontextedWhile(condition, action))
+
+    private fun resetIfs(els: ContainerStep? = null) {
+        if (currentIfs.isNotEmpty()) {
+            children += UncontextedIfChain(currentIfs.toList(), els)
+            currentIfs.clear()
+        }
     }
 
-    infix fun addIf(iff: () -> UncontextedIfChain.Builder) {
-        addIf(iff())
+    private fun resetAnd(action: () -> Unit) = resetIfs().also { action() }
+    private fun resetAndAdd(step: UncontextedStep) = resetAnd { add(step) }
+    fun iff(condition: Condition, action: ParentAction) = resetAnd {
+        currentIfs.add(UncontextedIf(condition, from(action)))
     }
 
-    infix fun addFor(forr: UncontextedFor) {
-        children += forr
+    fun elseIf(condition: Condition, action: ParentAction) {
+        if (currentIfs.isEmpty()) {
+            throw IllegalStateException("Trying to add an else if before an if!")
+        } else {
+            currentIfs.add(UncontextedIf(condition, from(action)))
+        }
     }
 
-    infix fun addFor(forr: () -> UncontextedFor) = addFor(forr())
-
-    infix fun addWhile(whil: UncontextedWhile){
-        children+=whil
+    fun els(action: ParentAction) = resetIfs(from(action))
+    override fun toContexted(parentVars: Vars?): ContextedContainerStep {
+        resetIfs()
+        return ContextedContainerStep(this, parentVars)
     }
-    infix fun addWhile(whil: ()-> UncontextedWhile)=addWhile(whil())
-    override fun toContexted(parentVars: Vars?)=ContextedContainerStep(this, parentVars)
+
+    companion object {
+        fun from(parentAction: ParentAction) = ContainerStep().also(parentAction)
+    }
 }
+
+fun a(desc: String, action: PlainAction) =
+    UncontextedAction(desc, action)

@@ -192,7 +192,7 @@ val Boolean.v: BooleanVariable
  * Represents the vars available within a scope.
  * @param[parent] vars from an outer scope that can also be accessed
  */
-typealias VarMap = MutableMap<String, Variable<*>>
+typealias VarMap = MutableMap<String, Any>
 
 class Vars(myVars: VarMap?=null) {
 
@@ -207,15 +207,10 @@ class Vars(myVars: VarMap?=null) {
      * @param[key] The name to set the variable to
      * @param[value] The variable
      */
-    operator fun set(key: String, value: Variable<*>) {
+    operator fun set(key: String, value: Any) {
         myVars[key]=value
     }
     operator fun get(key: String)=myVars[key]
-
-    operator fun set(key: String, value: Int) = set(key, int(key, value))
-    operator fun set(key: String, value: String) = set(key, string(key, value))
-    operator fun set(key: String, value: Boolean) = set(key, bool(key, value))
-    operator fun <T> set(key: String, values: List<T>) = set(key, list(key, values))
 
     override fun equals(other: Any?) = other is Vars && this.myVars==other.myVars
 

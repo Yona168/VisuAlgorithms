@@ -1,6 +1,7 @@
-import com.github.yona168.visualgorithms.arch.*
+import com.github.yona168.visualgorithms.arch.algorithm
+import com.github.yona168.visualgorithms.arch.c
+import com.github.yona168.visualgorithms.arch.run
 import com.github.yona168.visualgorithms.arch.steps.ContextedContainerStep
-import com.github.yona168.visualgorithms.arch.steps.iff
 import com.github.yona168.visualgorithms.arch.variables.Vars
 import com.github.yona168.visualgorithms.arch.variables.v
 import io.kotest.core.spec.style.StringSpec
@@ -10,10 +11,8 @@ class IfTest : StringSpec({
     "If tests true conditions successfully"{
         var bool = false
         val program = algorithm {
-            addIf {
-                iff(c("True") { true }).then {
-                    add("Change bool to true") { bool = true }
-                }
+            iff(c("True") { true }) {
+                add("Change bool to true") { bool = true }
             }
         }
         run(program)
@@ -23,10 +22,8 @@ class IfTest : StringSpec({
     "If tests false conditions successfully"{
         var bool = true
         val program = algorithm {
-            addIf {
-                iff(c("False") { false }).then {
-                    add("Change bool to false") { bool = false }
-                }
+            iff(c("False") { false }) {
+                add("Change bool to false") { bool = false }
             }
         }
         run(program)
@@ -34,31 +31,30 @@ class IfTest : StringSpec({
     }
 
     "If chain works on intermediate ifs"{
-        var str = ""
+        var strr = ""
         fun getProgram(initial: Pair<String, String>? = null): ContextedContainerStep {
             val initialVars = Vars()
             if (initial != null) {
                 initialVars[initial.first] = initial.second
             }
             return algorithm(initialVars) {
-                addIf {
-                    iff(c("x is apple") { vars["x"] == "apple".v })
-                        .then {
-                        add("set str to apple") { str = "apple" }
-                    }.elseIf(c("z is banana") { vars["z"] == "banana".v }).then {
-                        add("set str to banana") { str = "banana" }
-                    }.els {
-                        add("set str to orange") { str = "orange" }
-                    }
+                iff(c("x is apple") { vars["x"] == "apple" }) {
+                    add("set str to apple") { strr = "apple" }
+                }
+                elseIf(c("z is banana") { vars["z"] == "banana" }) {
+                    add("set str to banana") { strr = "banana" }
+                }
+                els {
+                    add("set str to orange") { strr = "orange" }
                 }
 
             }
         }
         run(getProgram("x" to "apple"))
-        str shouldBe "apple"
+        strr shouldBe "apple"
         run(getProgram("z" to "banana"))
-        str shouldBe "banana"
+        strr shouldBe "banana"
         run(getProgram())
-        str shouldBe "orange"
+        strr shouldBe "orange"
     }
 })
