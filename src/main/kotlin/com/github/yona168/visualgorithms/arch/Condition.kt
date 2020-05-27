@@ -2,6 +2,7 @@ package com.github.yona168.visualgorithms.arch
 
 import com.github.yona168.visualgorithms.arch.steps.CheckCondition
 import com.github.yona168.visualgorithms.arch.variables.HasVars
+import java.lang.IllegalStateException
 
 /**
  * Represents a classic condition (ie x==5)
@@ -80,3 +81,13 @@ fun Condition.or(desc: String, other: HasVars.() -> Boolean) = OrParent(this, Bo
  * Convenience function for creating a [BoolCondition]
  */
 fun c(desc: String, bool: HasVars.() -> Boolean) = BoolCondition(desc, bool)
+
+infix fun String.lessThan(other: String)=c("$this is less than $other"){
+    val first = vars[this@lessThan] as Int
+    when(vars[other]){
+        is Int->return@c first<(vars[other] as Int)
+        is Double -> return@c first<(vars[other] as Double)
+        else -> throw IllegalStateException()
+    }
+}
+
