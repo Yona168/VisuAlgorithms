@@ -1,5 +1,6 @@
 package com.github.yona168.visualgorithms.arch
 
+import com.github.yona168.visualgorithms.arch.steps.CheckCondition
 import com.github.yona168.visualgorithms.arch.variables.HasVars
 
 /**
@@ -10,7 +11,7 @@ sealed class Condition {
      * Evaluates whether this condition is true
      * @return a [Boolean] representing if this condition is true or false
      */
-    abstract fun evaluate(checkConditionStep: ContextedCheckCondition): Boolean
+    abstract fun evaluate(checkConditionStep: CheckCondition): Boolean
     abstract val desc: String
 }
 
@@ -27,7 +28,7 @@ class AndParent(one: Condition, two: Condition) : ParentCondition(one, two) {
     /**
      * @return true if both [one] and [two] are true, false otherwise
      */
-    override fun evaluate(checkConditionStep: ContextedCheckCondition) =
+    override fun evaluate(checkConditionStep: CheckCondition) =
         conditionOne.evaluate(checkConditionStep) && conditionTwo.evaluate(checkConditionStep)
 
     override val desc: String
@@ -41,7 +42,7 @@ class OrParent(one: Condition, two: Condition) : ParentCondition(one, two) {
     /**
      * @return [true] if either [one] or [two] is true, false otherwise
      */
-    override fun evaluate(checkConditionStep: ContextedCheckCondition) =
+    override fun evaluate(checkConditionStep: CheckCondition) =
         conditionOne.evaluate(checkConditionStep) || conditionTwo.evaluate(checkConditionStep)
     override val desc: String
         get() = "${conditionOne.desc} or ${conditionTwo.desc}"
@@ -56,7 +57,7 @@ class BoolCondition(override val desc: String, private val supplier: HasVars.() 
     /**
      * @return the [Boolean] returned by [supplier]
      */
-    override fun evaluate(checkConditionStep: ContextedCheckCondition) = supplier(checkConditionStep)
+    override fun evaluate(checkConditionStep: CheckCondition) = supplier(checkConditionStep)
 }
 
 /**

@@ -1,4 +1,6 @@
 import com.github.yona168.visualgorithms.arch.*
+import com.github.yona168.visualgorithms.arch.steps.ContextedContainerStep
+import com.github.yona168.visualgorithms.arch.steps.iff
 import com.github.yona168.visualgorithms.arch.variables.Vars
 import com.github.yona168.visualgorithms.arch.variables.v
 import io.kotest.core.spec.style.StringSpec
@@ -40,7 +42,8 @@ class IfTest : StringSpec({
             }
             return algorithm(initialVars) {
                 addIf {
-                    iff(c("x is apple") { vars["x"] == "apple".v }).then {
+                    iff(c("x is apple") { vars["x"] == "apple".v })
+                        .then {
                         add("set str to apple") { str = "apple" }
                     }.elseIf(c("z is banana") { vars["z"] == "banana".v }).then {
                         add("set str to banana") { str = "banana" }

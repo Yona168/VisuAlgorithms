@@ -1,6 +1,6 @@
 package com.github.yona168.visualgorithms.arch.runner
 
-import com.github.yona168.visualgorithms.arch.*
+import com.github.yona168.visualgorithms.arch.steps.*
 
 interface Runner {
     /**
@@ -41,10 +41,10 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
                     val current = thisLevelCurrent
                     backingSubRunner = when (current) {
                         is ContextedContainerStep -> ContainerRunner(current)
-                        is ContextedIfChain -> IfChainRunner(current)
-                        is ContextedIf -> IfRunner(current)
-                        is ContextedFor -> ForRunner(current)
-                        is ContextedWhile->WhileRunner(current)
+                        is IfChain -> IfChainRunner(current)
+                        is If -> IfRunner(current)
+                        is For -> ForRunner(current)
+                        is While ->WhileRunner(current)
                         else -> throw IllegalStateException()
                     }
                     backingSubRunnerIndex = stepIndex
@@ -96,8 +96,8 @@ class ContainerRunner(parentStep: ContextedContainerStep) : AbstractRunner(
             return result
         } else {
             val current = thisLevelCurrent
-            val action = current as ContextedActionStep
-            action.barrenAction(action)
+            val action = current as Action
+            action.plainAction(action)
             stepIndex++
             if (stepIndex > stepList.lastIndex) {
                 markAsDone()
@@ -107,7 +107,7 @@ class ContainerRunner(parentStep: ContextedContainerStep) : AbstractRunner(
     }
 }
 
-class IfChainRunner(parentStep: ContextedIfChain) : AbstractRunner(
+class IfChainRunner(parentStep: IfChain) : AbstractRunner(
     parentStep
 ) {
     override fun next(): RunResult {
@@ -115,7 +115,7 @@ class IfChainRunner(parentStep: ContextedIfChain) : AbstractRunner(
         val current = thisLevelCurrent
 
         return when (current) {
-            is ContextedIf -> {
+            is If -> {
                 val subRunner = currentSubRunner as IfRunner
                 val result = subRunner.next()
                 if (subRunner.isDone) { //Either if is false, or true and the then block has stopped executing
@@ -135,7 +135,7 @@ class IfChainRunner(parentStep: ContextedIfChain) : AbstractRunner(
     }
 }
 
-class IfRunner(parentStep: ContextedIf) : AbstractRunner(parentStep) {
+class IfRunner(parentStep: If) : AbstractRunner(parentStep) {
     internal var conditionIs: Boolean? = null
     override fun next(): RunResult {
         if (stepIndex == -1) {
@@ -143,8 +143,8 @@ class IfRunner(parentStep: ContextedIf) : AbstractRunner(parentStep) {
         }
         val current = thisLevelCurrent
         return when (current) {
-            is ContextedCheckCondition -> {
-                val conditionStep = thisLevelCurrent as ContextedCheckCondition
+            is CheckCondition -> {
+                val conditionStep = thisLevelCurrent as CheckCondition
                 conditionIs = conditionStep.condition.evaluate(conditionStep)
                 if (conditionIs == false) {
                     this.markAsDone()
@@ -160,22 +160,22 @@ class IfRunner(parentStep: ContextedIf) : AbstractRunner(parentStep) {
     }
 }
 
-class ForRunner(parentStep: ContextedFor) : AbstractRunner(parentStep) {
+class ForRunner(parentStep: For) : AbstractRunner(parentStep) {
     override fun next(): RunResult {
         if (stepIndex == -1) {
             stepIndex++
         }
         val current = thisLevelCurrent
         when (current) {
-            is ContextedActionStep -> {
-                current.barrenAction(current)
+            is Action -> {
+                current.plainAction(current)
                 stepIndex++
                 if(stepIndex==stepList.size){
                     stepIndex=1
                 }
                 return SuccessDesc(current.desc)
             }
-            is ContextedCheckCondition -> {
+            is CheckCondition -> {
                 val done = current.condition.evaluate(current).not()
                 if (done) this.markAsDone()
                 stepIndex++
@@ -190,12 +190,12 @@ class ForRunner(parentStep: ContextedFor) : AbstractRunner(parentStep) {
 
 }
 
-class WhileRunner(parentStep: ContextedWhile):AbstractRunner(parentStep){
+class WhileRunner(parentStep: While):AbstractRunner(parentStep){
     override fun next(): RunResult {
         if(stepIndex==-1)stepIndex++
         val current=thisLevelCurrent
         when(current){
-            is ContextedCheckCondition->{
+            is CheckCondition ->{
                 val done=current.condition.evaluate(current).not()
                 if(done){
                     this.markAsDone()
@@ -203,7 +203,7 @@ class WhileRunner(parentStep: ContextedWhile):AbstractRunner(parentStep){
                 stepIndex++
                 return SuccessDesc(current,done)
             }
-            is ContextedContainerStep->{
+            is ContextedContainerStep ->{
                 return handleContainerStep { resetSubRunner() }.also { stepIndex=0 }
             }
             else-> throw IllegalStateException()
@@ -214,6 +214,6 @@ class WhileRunner(parentStep: ContextedWhile):AbstractRunner(parentStep){
 
 sealed class RunResult
 class SuccessDesc(val desc: String) : RunResult() {
-    constructor(checkCondition: ContextedCheckCondition, result: Boolean) :
+    constructor(checkCondition: CheckCondition, result: Boolean) :
             this("Evaluate ${checkCondition.condition.desc} -> $result")
 }

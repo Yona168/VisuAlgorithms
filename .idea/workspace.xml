@@ -2,11 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07db29b8-2fdd-4e60-96cf-d48be0124bb5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/kotlin/WhileTest.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/TypeDefs.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/UncontextedSteps.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Steps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Steps.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Algorithm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Algorithm.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Condition.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Condition.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Steps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/Steps.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/variables/HasVars.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/variables/HasVars.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ForTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ForTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/IfTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/IfTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/WhileTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/WhileTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,8 +41,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -60,9 +65,12 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.github.yona168.visualgorithms.arch.steps" />
+      <recent name="com.github.yona168.visualgorithms.arch" />
       <recent name="variables" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ygins\IdeaProjects\VisuAlgorithms\src\main\kotlin\com\github\yona168\visualgorithms\arch\steps" />
       <recent name="C:\Users\ygins\IdeaProjects\VisuAlgorithms\src\main\kotlin\com\github\yona168\visualgorithms\arch\variables" />
       <recent name="C:\Users\ygins\IdeaProjects\VisuAlgorithms\src\test\kotlin\variables" />
       <recent name="C:\Users\ygins\IdeaProjects\VisuAlgorithms\src\main\kotlin\com\github\yona168\visualgorithms\arch\runner" />
@@ -205,59 +213,63 @@
     </state>
     <state x="463" y="106" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1589764819096" />
     <state x="556" y="128" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585349766707" />
+    <state x="382" y="130" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590594359081">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="382" y="130" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.680@0.0.1280.680" timestamp="1590594359081" />
     <state x="321" y="77" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1587264017364">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="321" y="77" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1280.680@0.0.1280.680" timestamp="1587264017364" />
-    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1589584187924">
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1590594584502">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.680@0.0.1280.680" timestamp="1589584187924" />
+    <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.680@0.0.1280.680" timestamp="1590594584502" />
     <state x="262" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1585456201176" />
-    <state x="420" y="92" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1587272887830">
+    <state x="420" y="0" width="493" height="680" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog" timestamp="1590594361146">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state x="420" y="92" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1587272887830" />
+    <state x="420" y="0" width="493" height="680" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1280.680@0.0.1280.680" timestamp="1590594361146" />
     <state x="792" y="0" key="#xdebugger.evaluate" timestamp="1589751770895">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="792" y="0" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1589751770895" />
-    <state width="1237" height="41" key="GridCell.Tab.0.bottom" timestamp="1589766370703">
+    <state width="1237" height="157" key="GridCell.Tab.0.bottom" timestamp="1589766512211">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="41" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1589766370703" />
+    <state width="1237" height="157" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1589766512211" />
     <state width="1493" height="190" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="41" key="GridCell.Tab.0.center" timestamp="1589766370702">
+    <state width="1237" height="157" key="GridCell.Tab.0.center" timestamp="1589766512211">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="41" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1589766370702" />
+    <state width="1237" height="157" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1589766512211" />
     <state width="1493" height="190" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="41" key="GridCell.Tab.0.left" timestamp="1589766370702">
+    <state width="1237" height="157" key="GridCell.Tab.0.left" timestamp="1589766512211">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="41" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1589766370702" />
+    <state width="1237" height="157" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1589766512211" />
     <state width="1493" height="190" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="41" key="GridCell.Tab.0.right" timestamp="1589766370703">
+    <state width="1237" height="157" key="GridCell.Tab.0.right" timestamp="1589766512211">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="41" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1589766370703" />
+    <state width="1237" height="157" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1589766512211" />
     <state width="1493" height="190" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="157" key="GridCell.Tab.1.bottom" timestamp="1589765669535">
+    <state width="1237" height="157" key="GridCell.Tab.1.bottom" timestamp="1589766512212">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="157" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1589765669535" />
-    <state width="1237" height="157" key="GridCell.Tab.1.center" timestamp="1589765669535">
+    <state width="1237" height="157" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1589766512212" />
+    <state width="1237" height="157" key="GridCell.Tab.1.center" timestamp="1589766512212">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="157" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1589765669535" />
-    <state width="1237" height="157" key="GridCell.Tab.1.left" timestamp="1589765669534">
+    <state width="1237" height="157" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1589766512212" />
+    <state width="1237" height="157" key="GridCell.Tab.1.left" timestamp="1589766512211">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="157" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1589765669534" />
-    <state width="1237" height="157" key="GridCell.Tab.1.right" timestamp="1589765669535">
+    <state width="1237" height="157" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1589766512211" />
+    <state width="1237" height="157" key="GridCell.Tab.1.right" timestamp="1589766512212">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="157" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1589765669535" />
+    <state width="1237" height="157" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1589766512212" />
     <state x="208" y="0" key="SettingsEditor" timestamp="1587408702638">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -288,7 +300,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/test/kotlin/ForTest.kt</url>
-          <line>13</line>
+          <line>18</line>
           <properties>
             <option name="lambda-ordinal" value="0" />
           </properties>

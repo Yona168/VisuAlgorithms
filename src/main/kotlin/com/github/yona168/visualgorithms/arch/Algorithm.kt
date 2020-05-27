@@ -1,10 +1,15 @@
 package com.github.yona168.visualgorithms.arch
 
 import com.github.yona168.visualgorithms.arch.runner.ContainerRunner
+import com.github.yona168.visualgorithms.arch.steps.ContainerStep
+import com.github.yona168.visualgorithms.arch.steps.ContextedContainerStep
+import com.github.yona168.visualgorithms.arch.steps.ParentAction
 import com.github.yona168.visualgorithms.arch.variables.Vars
 
 fun algorithm(initialVars: Vars? = Vars(), main: ParentAction): ContextedContainerStep {
-    val parentStep = ContextedContainerStep(ContainerStep().also(main), initialVars)
+    val parentStep = ContextedContainerStep(
+        ContainerStep().also(main), initialVars
+    )
     return parentStep
 }
 
