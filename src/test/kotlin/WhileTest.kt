@@ -13,7 +13,7 @@ class WhileTest : StringSpec({
         val algo = algorithm {
             add("set i to 0"){i=0}
             whil(c("i is less than 5") { i < 5 }) {
-                increment("i" with 1)
+                add("increment i by 1"){i++}
                 add("Add i to emptyList") { emptyList.add(i) }
             }
         }

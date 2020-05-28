@@ -40,7 +40,7 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
                 if (backingSubRunner == null || stepIndex != backingSubRunnerIndex) {
                     val current = thisLevelCurrent
                     backingSubRunner = when (current) {
-                        is ContextedContainerStep -> ContainerRunner(current)
+                        is ContainerStep -> ContainerRunner(current)
                         is IfChain -> IfChainRunner(current)
                         is If -> IfRunner(current)
                         is For -> ForRunner(current)
@@ -81,7 +81,7 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
     }
 }
 
-class ContainerRunner(parentStep: ContextedContainerStep) : AbstractRunner(
+class ContainerRunner(parentStep: ContainerStep) : AbstractRunner(
     parentStep
 ) {
     override fun next(): RunResult {
@@ -129,7 +129,7 @@ class IfChainRunner(parentStep: IfChain) : AbstractRunner(
                 }
                 return result
             }
-            is ContextedContainerStep -> return handleContainerStep()
+            is ContainerStep -> return handleContainerStep()
             else -> throw IllegalStateException()
         }
     }
@@ -154,7 +154,7 @@ class IfRunner(parentStep: If) : AbstractRunner(parentStep) {
                 val result = SuccessDesc(conditionStep, conditionIs as Boolean)
                 return result
             }
-            is ContextedContainerStep -> handleContainerStep()
+            is ContainerStep -> handleContainerStep()
             else -> throw IllegalStateException()
         }
     }
@@ -181,7 +181,7 @@ class ForRunner(parentStep: For) : AbstractRunner(parentStep) {
                 stepIndex++
                 return SuccessDesc(current, done)
             }
-            is ContextedContainerStep -> {
+            is ContainerStep -> {
                 return handleContainerStep{resetSubRunner()}.also { stepIndex++ }
             }
             else -> throw IllegalStateException()
@@ -203,7 +203,7 @@ class WhileRunner(parentStep: While):AbstractRunner(parentStep){
                 stepIndex++
                 return SuccessDesc(current,done)
             }
-            is ContextedContainerStep ->{
+            is ContainerStep ->{
                 return handleContainerStep { resetSubRunner() }.also { stepIndex=0 }
             }
             else-> throw IllegalStateException()

@@ -13,9 +13,59 @@ abstract class ParentStep(parentVars: Vars?) : Step(parentVars) {
     abstract fun steps(): List<Step>
 }
 
-class ContextedContainerStep(containerStep: ContainerStep, parentVars: Vars?) :
+class ContainerStep(private val parentVars: Vars?) :
     ParentStep(parentVars) {
-    private val children = containerStep.children.map { it.toContexted(parentVars) }
+    private val children = mutableListOf<Step>()
+    private var currentIfs = mutableListOf<If>()
+    fun add(desc: String, plainAction: PlainAction) = add(
+        Action(
+            parentVars,
+            desc,
+            plainAction
+        )
+    )
+
+    fun add(actionStep: Step) {
+        children += actionStep
+    }
+
+    fun forr(desc:String,iAction:PlainAction, condition: Condition, aDesc:String,aAction:PlainAction, loop: ParentAction) =
+        resetAndAdd(
+            For(
+                desc, iAction, condition, aDesc, aAction, loop, parentVars
+            )
+        )
+
+    fun whil(condition: Condition, action: ParentAction) =
+        resetAndAdd(While(condition, action, parentVars))
+
+    internal fun resetIfs(els: ContainerStep? = null) {
+        if (currentIfs.isNotEmpty()) {
+            children += IfChain(currentIfs.toList(), els, parentVars)
+            currentIfs.clear()
+        }
+    }
+
+    private fun resetAnd(action: () -> Unit) = resetIfs().also { action() }
+    private fun resetAndAdd(step: Step) = resetAnd { add(step) }
+
+    fun iff(condition: Condition, action: ParentAction) = resetAnd {
+        currentIfs.add(If(condition, from(action, parentVars), parentVars))
+    }
+
+    fun elseIf(condition: Condition, action: ParentAction) {
+        if (currentIfs.isEmpty()) {
+            throw IllegalStateException("Trying to add an else if before an if!")
+        } else {
+            currentIfs.add(If(condition, from(action,parentVars), parentVars))
+        }
+    }
+
+    fun els(action: ParentAction) = resetIfs(from(action,parentVars))
+
+    companion object {
+        fun from(parentAction: ParentAction, vars: Vars?) = ContainerStep(vars).also(parentAction)
+    }
     override fun steps() = children
 }
 
@@ -29,80 +79,67 @@ class Action(
 class CheckCondition(val condition: Condition, parentVars: Vars?) :
     Step(parentVars)
 
-class If(iff: UncontextedIf, vars: Vars?) : ParentStep(vars) {
-    private val thenStep: Step =
-        ContextedContainerStep(iff.then, vars)
-    private val contextedCheckCondition: Step =
-        CheckCondition(iff.condition, vars)
-    override fun steps() = listOf(contextedCheckCondition, thenStep)
-
+class If(private val condition: Condition, private val then: ContainerStep, vars: Vars?) : ParentStep(vars) {
+    override fun steps() = listOf(CheckCondition(condition, vars), then)
 }
 
 class IfChain(
-    private val parentVars: Vars?,
-    ifChain: UncontextedIfChain
+    private val ifElseIfs: List<If>,
+    private val els: ContainerStep? = null,
+    parentVars: Vars?
 ) : ParentStep(parentVars) {
-    val contextedIfs = ifChain.ifElseIfs.map {
-        If(
-            it,
-            parentVars
-        )
-    }
-    val contextedElse: ContextedContainerStep? =
-        if (ifChain.els == null) null
-        else ContextedContainerStep(
-            ifChain.els,
-            parentVars
-        )
-
     override fun steps(): List<Step> {
         val stepList = mutableListOf<Step>()
-        stepList += contextedIfs
-        if (contextedElse != null) stepList += contextedElse
+        stepList += ifElseIfs
+        if (els != null) stepList += els
         return stepList
     }
 
 }
 
-class For(val forr: UncontextedFor, val parentVars: Vars?) : ParentStep(parentVars) {
+class For(
+    private val initialDesc: String,
+    private val initial: PlainAction,
+    private val condition: Condition,
+    private val afterDesc: String,
+    private val afterAction: PlainAction,
+    private val doAction: ParentAction,
+    private val parentVars: Vars?
+) : ParentStep(parentVars) {
     override fun steps(): List<Step> {
         val stepList = mutableListOf<Step>()
         stepList += Action(
             parentVars,
-            forr.initialDesc,
-            forr.initial
+            initialDesc,
+            initial
         )
         stepList += CheckCondition(
-            forr.condition,
+            condition,
             parentVars
         )
-        val container = ContainerStep()
-        forr.doAction(container)
-        stepList += ContextedContainerStep(
-            container,
-            parentVars
-        )
+        val container = ContainerStep.from(doAction,parentVars)
+        stepList += container
         stepList += Action(
             parentVars,
-            forr.afterDesc,
-            forr.afterAction
+            afterDesc,
+            afterAction
         )
         return stepList
     }
 }
 
-class While(private val whil: UncontextedWhile, vars: Vars?) : ParentStep(vars) {
+class While(private val condition: Condition, private val action: ParentAction, vars: Vars?) : ParentStep(vars) {
     override fun steps(): List<Step> {
         return listOf(
             CheckCondition(
-                whil.condition,
+                condition,
                 vars
             ),
-            ContextedContainerStep(
-                ContainerStep().apply(whil.action), vars
-            )
+            ContainerStep.from(action, vars)
         )
     }
 
 }
+
+
 

@@ -1,7 +1,7 @@
 import com.github.yona168.visualgorithms.arch.algorithm
 import com.github.yona168.visualgorithms.arch.c
 import com.github.yona168.visualgorithms.arch.run
-import com.github.yona168.visualgorithms.arch.steps.ContextedContainerStep
+import com.github.yona168.visualgorithms.arch.steps.ContainerStep
 import com.github.yona168.visualgorithms.arch.variables.Vars
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -31,7 +31,7 @@ class IfTest : StringSpec({
 
     "If chain works on intermediate ifs"{
         var strr = ""
-        fun getProgram(initial: Pair<String, String>? = null): ContextedContainerStep {
+        fun getProgram(initial: Pair<String, String>? = null): ContainerStep {
             val initialVars = Vars()
             if (initial != null) {
                 initialVars[initial.first] = initial.second
