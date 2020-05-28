@@ -2,7 +2,6 @@ import com.github.yona168.visualgorithms.arch.algorithm
 import com.github.yona168.visualgorithms.arch.c
 import com.github.yona168.visualgorithms.arch.run
 import com.github.yona168.visualgorithms.arch.steps.a
-import com.github.yona168.visualgorithms.arch.variables.v
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 

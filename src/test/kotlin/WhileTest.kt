@@ -1,7 +1,8 @@
 import com.github.yona168.visualgorithms.arch.algorithm
 import com.github.yona168.visualgorithms.arch.c
 import com.github.yona168.visualgorithms.arch.run
-import com.github.yona168.visualgorithms.arch.variables.v
+import com.github.yona168.visualgorithms.arch.steps.increment
+import com.github.yona168.visualgorithms.arch.steps.with
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -12,7 +13,7 @@ class WhileTest : StringSpec({
         val algo = algorithm {
             add("set i to 0"){i=0}
             whil(c("i is less than 5") { i < 5 }) {
-                add("Increment i") { i = i + 1 }
+                increment("i" with 1)
                 add("Add i to emptyList") { emptyList.add(i) }
             }
         }

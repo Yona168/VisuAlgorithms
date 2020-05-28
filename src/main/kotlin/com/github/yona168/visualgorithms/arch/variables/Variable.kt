@@ -9,6 +9,7 @@ import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 
 
+/*
 /**
  * Base class for all variables to be used in an algorithm.
  * @property[name] the name of this variable (ie "x")
@@ -192,6 +193,8 @@ val Boolean.v: BooleanVariable
  * Represents the vars available within a scope.
  * @param[parent] vars from an outer scope that can also be accessed
  */
+ */
+
 typealias VarMap = MutableMap<String, Any>
 
 class Vars(myVars: VarMap?=null) {
