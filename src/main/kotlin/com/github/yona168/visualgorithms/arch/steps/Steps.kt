@@ -13,7 +13,7 @@ abstract class ParentStep(parentVars: Vars?) : Step(parentVars) {
     abstract fun steps(): List<Step>
 }
 
-class ContainerStep(private val parentVars: Vars?) :
+open class ContainerStep private constructor(private val parentVars: Vars?) :
     ParentStep(parentVars) {
     private val children = mutableListOf<Step>()
     private var currentIfs = mutableListOf<If>()
@@ -38,6 +38,9 @@ class ContainerStep(private val parentVars: Vars?) :
 
     fun whil(condition: Condition, action: ParentAction) =
         resetAndAdd(While(condition, action, parentVars))
+
+    fun breakk()=resetAndAdd(Break(parentVars))
+    fun continuee() = resetAndAdd(Continue(parentVars))
 
     internal fun resetIfs(els: ContainerStep? = null) {
         if (currentIfs.isNotEmpty()) {
@@ -64,11 +67,15 @@ class ContainerStep(private val parentVars: Vars?) :
     fun els(action: ParentAction) = resetIfs(from(action,parentVars))
 
     companion object {
-        fun from(parentAction: ParentAction, vars: Vars?) = ContainerStep(vars).also(parentAction)
+        fun from(parentAction: ParentAction, vars: Vars?):ContainerStep = ContainerStep(vars).also(parentAction).also{it.resetIfs()}
     }
     override fun steps() = children
+
 }
 
+
+class Break(vars: Vars?):Step(vars)
+class Continue(vars: Vars?):Step(vars)
 
 class Action(
     parentVars: Vars?,

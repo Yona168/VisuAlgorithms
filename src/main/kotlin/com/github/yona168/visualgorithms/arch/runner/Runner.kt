@@ -10,8 +10,12 @@ interface Runner {
 
     val isDone: Boolean
 
-    fun next(): RunResult
-    fun previous(): RunResult
+    fun next(): Result
+    fun previous(): Result
+}
+
+interface Result {
+    val desc: String
 }
 
 /*
@@ -44,7 +48,7 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
                         is IfChain -> IfChainRunner(current)
                         is If -> IfRunner(current)
                         is For -> ForRunner(current)
-                        is While ->WhileRunner(current)
+                        is While -> WhileRunner(current)
                         else -> throw IllegalStateException()
                     }
                     backingSubRunnerIndex = stepIndex
@@ -64,16 +68,16 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
         backingIsDone = true
     }
 
-    override fun previous(): RunResult {
+    override fun previous(): Result {
         TODO("Not yet implemented")
     }
 
-    protected fun handleContainerStep(doneAction: (() -> Unit)? = null): RunResult {
+    protected fun handleContainerStep(doneAction: (() -> Unit)? = null): Result {
         val result = currentSubRunner!!.next()
         if (currentSubRunner!!.isDone) {
             if (doneAction != null) {
                 doneAction()
-            } else if(stepIndex==stepList.lastIndex){
+            } else if (stepIndex == stepList.lastIndex) {
                 this.markAsDone()
             }
         }
@@ -84,25 +88,37 @@ abstract class AbstractRunner(parentStep: ParentStep) : Runner {
 class ContainerRunner(parentStep: ContainerStep) : AbstractRunner(
     parentStep
 ) {
-    override fun next(): RunResult {
+    override fun next(): Result {
         if (stepIndex == -1) {
             stepIndex++
         }
         if (thisLevelCurrent is ParentStep && currentSubRunner!!.isDone.not()) {
             val result = currentSubRunner!!.next()
-            if (currentSubRunner!!.isDone && (stepIndex == stepList.lastIndex)) { //If we have finished all children
-                markAsDone()
+            if (currentSubRunner!!.isDone) {
+                if(stepIndex==stepList.lastIndex){//If we have finished all children
+                    markAsDone()
+                }else{
+                    stepIndex++
+                }
             }
             return result
         } else {
             val current = thisLevelCurrent
-            val action = current as Action
-            action.plainAction(action)
+            val result = when (current) {
+                is Action -> {
+                    val action = current
+                    action.plainAction(action)
+                    RunResult(action.desc)
+                }
+                is Break -> BreakResult()
+                is Continue -> ContinueResult()
+                else -> throw IllegalStateException()
+            }
             stepIndex++
             if (stepIndex > stepList.lastIndex) {
                 markAsDone()
             }
-            return SuccessDesc(action.desc)
+            return result
         }
     }
 }
@@ -110,7 +126,7 @@ class ContainerRunner(parentStep: ContainerStep) : AbstractRunner(
 class IfChainRunner(parentStep: IfChain) : AbstractRunner(
     parentStep
 ) {
-    override fun next(): RunResult {
+    override fun next(): Result {
         if (stepIndex == -1) stepIndex++
         val current = thisLevelCurrent
 
@@ -137,7 +153,7 @@ class IfChainRunner(parentStep: IfChain) : AbstractRunner(
 
 class IfRunner(parentStep: If) : AbstractRunner(parentStep) {
     internal var conditionIs: Boolean? = null
-    override fun next(): RunResult {
+    override fun next(): Result {
         if (stepIndex == -1) {
             stepIndex++
         }
@@ -151,7 +167,7 @@ class IfRunner(parentStep: If) : AbstractRunner(parentStep) {
                 } else {
                     stepIndex++
                 }
-                val result = SuccessDesc(conditionStep, conditionIs as Boolean)
+                val result = RunResult(conditionStep, conditionIs as Boolean)
                 return result
             }
             is ContainerStep -> handleContainerStep()
@@ -161,7 +177,7 @@ class IfRunner(parentStep: If) : AbstractRunner(parentStep) {
 }
 
 class ForRunner(parentStep: For) : AbstractRunner(parentStep) {
-    override fun next(): RunResult {
+    override fun next(): Result {
         if (stepIndex == -1) {
             stepIndex++
         }
@@ -170,19 +186,28 @@ class ForRunner(parentStep: For) : AbstractRunner(parentStep) {
             is Action -> {
                 current.plainAction(current)
                 stepIndex++
-                if(stepIndex==stepList.size){
-                    stepIndex=1
+                if (stepIndex == stepList.size) {
+                    stepIndex = 1
                 }
-                return SuccessDesc(current.desc)
+                return RunResult(current.desc)
             }
             is CheckCondition -> {
                 val done = current.condition.evaluate(current).not()
                 if (done) this.markAsDone()
                 stepIndex++
-                return SuccessDesc(current, done)
+                return RunResult(current, done)
             }
             is ContainerStep -> {
-                return handleContainerStep{resetSubRunner()}.also { stepIndex++ }
+                val result = handleContainerStep { resetSubRunner() }.also { stepIndex++ }
+                if (result is BreakResult && !result.broken) {
+                    this.markAsDone()
+                    result.broken=true
+                } else if (result is ContinueResult && !result.continued) {
+                    resetSubRunner()
+                    stepIndex++
+                    result.continued=true
+                }
+                return result
             }
             else -> throw IllegalStateException()
         }
@@ -190,30 +215,49 @@ class ForRunner(parentStep: For) : AbstractRunner(parentStep) {
 
 }
 
-class WhileRunner(parentStep: While):AbstractRunner(parentStep){
-    override fun next(): RunResult {
-        if(stepIndex==-1)stepIndex++
-        val current=thisLevelCurrent
-        when(current){
-            is CheckCondition ->{
-                val done=current.condition.evaluate(current).not()
-                if(done){
+class WhileRunner(parentStep: While) : AbstractRunner(parentStep) {
+    override fun next(): Result {
+        if (stepIndex == -1) stepIndex++
+        val current = thisLevelCurrent
+        when (current) {
+            is CheckCondition -> {
+                val done = current.condition.evaluate(current).not()
+                if (done) {
                     this.markAsDone()
                 }
                 stepIndex++
-                return SuccessDesc(current,done)
+                return RunResult(current, done.not())
             }
-            is ContainerStep ->{
-                return handleContainerStep { resetSubRunner() }.also { stepIndex=0 }
+            is ContainerStep -> {
+                val result = handleContainerStep {
+                    resetSubRunner()
+                    stepIndex=0
+                }
+                if (result is BreakResult && !result.broken) {
+                    this.markAsDone()
+                    result.broken=true
+                } else if (result is ContinueResult && !result.continued) {
+                    resetSubRunner()
+                    stepIndex = 0
+                    result.continued=true
+                }
+                return result
             }
-            else-> throw IllegalStateException()
+            else -> throw IllegalStateException()
         }
     }
 }
 
 
-sealed class RunResult
-class SuccessDesc(val desc: String) : RunResult() {
+internal open class RunResult(override val desc: String) : Result {
     constructor(checkCondition: CheckCondition, result: Boolean) :
             this("Evaluate ${checkCondition.condition.desc} -> $result")
+}
+
+internal class BreakResult : RunResult("Break out of loop") {
+    internal var broken = false
+}
+
+internal class ContinueResult : RunResult("Continue to next iteration") {
+    internal var continued = false
 }

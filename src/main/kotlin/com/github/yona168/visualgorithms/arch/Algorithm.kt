@@ -13,5 +13,6 @@ fun run(containerStep: ContainerStep) {
     val runner = ContainerRunner(containerStep)
     while (runner.isDone.not()) {
         val result=runner.next()
+        val i=0
     }
 }

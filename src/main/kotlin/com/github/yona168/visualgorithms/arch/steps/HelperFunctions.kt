@@ -24,7 +24,7 @@ fun ContainerStep.set(pair: Pair<Var, Any>) {
 
 private fun ContainerStep.mathAction(pair: VarIntPair, desc: String, action: (Int, Int)->Int)=
 add("$desc ${pair.first.value} by ${pair.second}"){
-    var num=vars[pair.first.value] as Int
+    val num=vars[pair.first.value] as Int
     vars[pair.first.value]=action(num, pair.second)
 }
 fun ContainerStep.increment(pair: VarIntPair)=mathAction(pair, "Increment"){a,b -> a+b}
