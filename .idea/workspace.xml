@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="07db29b8-2fdd-4e60-96cf-d48be0124bb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Algorithm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Algorithm.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/ProgramState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/ProgramState.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/HelperFunctions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/HelperFunctions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/Steps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/Steps.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/kotlin/WhileTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/WhileTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/ForTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/ForTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +77,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.VisuAlgorithms [test]">
+  <component name="RunManager" selected="Gradle.ForTest">
     <configuration name="ForTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -179,11 +175,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.ForTest" />
         <item itemvalue="Gradle.VisuAlgorithms [test]" />
         <item itemvalue="Gradle.WhileTest" />
         <item itemvalue="Gradle.VisuAlgorithms [build]" />
         <item itemvalue="Gradle.IfTest" />
-        <item itemvalue="Gradle.ForTest" />
       </list>
     </recent_temporary>
   </component>
@@ -235,42 +231,42 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="792" y="0" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1591029400919" />
-    <state width="1237" height="222" key="GridCell.Tab.0.bottom" timestamp="1591029748471">
+    <state width="1237" height="46" key="GridCell.Tab.0.bottom" timestamp="1591031633474">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="222" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1591029748471" />
+    <state width="1237" height="46" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1591031633474" />
     <state width="1493" height="190" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="222" key="GridCell.Tab.0.center" timestamp="1591029748471">
+    <state width="1237" height="46" key="GridCell.Tab.0.center" timestamp="1591031633474">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="222" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1591029748471" />
+    <state width="1237" height="46" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1591031633474" />
     <state width="1493" height="190" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="222" key="GridCell.Tab.0.left" timestamp="1591029748471">
+    <state width="1237" height="46" key="GridCell.Tab.0.left" timestamp="1591031633474">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="222" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1591029748471" />
+    <state width="1237" height="46" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1591031633474" />
     <state width="1493" height="190" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="222" key="GridCell.Tab.0.right" timestamp="1591029748471">
+    <state width="1237" height="46" key="GridCell.Tab.0.right" timestamp="1591031633474">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="222" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1591029748471" />
+    <state width="1237" height="46" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1591031633474" />
     <state width="1493" height="190" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="222" key="GridCell.Tab.1.bottom" timestamp="1591029748472">
+    <state width="1237" height="46" key="GridCell.Tab.1.bottom" timestamp="1591031633474">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="222" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1591029748472" />
-    <state width="1237" height="222" key="GridCell.Tab.1.center" timestamp="1591029748472">
+    <state width="1237" height="46" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1591031633474" />
+    <state width="1237" height="46" key="GridCell.Tab.1.center" timestamp="1591031633474">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="222" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1591029748472" />
-    <state width="1237" height="222" key="GridCell.Tab.1.left" timestamp="1591029748472">
+    <state width="1237" height="46" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1591031633474" />
+    <state width="1237" height="46" key="GridCell.Tab.1.left" timestamp="1591031633474">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="222" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1591029748472" />
-    <state width="1237" height="222" key="GridCell.Tab.1.right" timestamp="1591029748472">
+    <state width="1237" height="46" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1591031633474" />
+    <state width="1237" height="46" key="GridCell.Tab.1.right" timestamp="1591031633474">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="222" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1591029748472" />
+    <state width="1237" height="46" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1591031633474" />
     <state x="208" y="0" key="SettingsEditor" timestamp="1587408702638">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -300,41 +296,29 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/WhileTest.kt</url>
-          <line>55</line>
-          <properties>
-            <option name="lambda-ordinal" value="0" />
-          </properties>
-          <option name="timeStamp" value="34" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/WhileTest.kt</url>
-          <line>62</line>
-          <properties>
-            <option name="lambda-ordinal" value="0" />
-          </properties>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/WhileTest.kt</url>
-          <line>56</line>
-          <properties>
-            <option name="lambda-ordinal" value="0" />
-          </properties>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/test/kotlin/WhileTest.kt</url>
-          <line>54</line>
-          <properties>
-            <option name="lambda-ordinal" value="0" />
-          </properties>
-          <option name="timeStamp" value="37" />
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>236</line>
+          <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
-          <line>233</line>
-          <option name="timeStamp" value="38" />
+          <line>214</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>208</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>234</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>238</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

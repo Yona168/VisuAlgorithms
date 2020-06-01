@@ -95,9 +95,9 @@ class ContainerRunner(parentStep: ContainerStep) : AbstractRunner(
         if (thisLevelCurrent is ParentStep && currentSubRunner!!.isDone.not()) {
             val result = currentSubRunner!!.next()
             if (currentSubRunner!!.isDone) {
-                if(stepIndex==stepList.lastIndex){//If we have finished all children
+                if (stepIndex == stepList.lastIndex) {//If we have finished all children
                     markAsDone()
-                }else{
+                } else {
                     stepIndex++
                 }
             }
@@ -198,14 +198,17 @@ class ForRunner(parentStep: For) : AbstractRunner(parentStep) {
                 return RunResult(current, done)
             }
             is ContainerStep -> {
-                val result = handleContainerStep { resetSubRunner() }.also { stepIndex++ }
-                if (result is BreakResult && !result.broken) {
-                    this.markAsDone()
-                    result.broken=true
-                } else if (result is ContinueResult && !result.continued) {
+                val result = handleContainerStep {
                     resetSubRunner()
                     stepIndex++
-                    result.continued=true
+                }
+                if (result is BreakResult && !result.broken) {
+                    this.markAsDone()
+                    result.broken = true
+                } else if (result is ContinueResult && !result.continued) {
+                    resetSubRunner()
+                    if(stepIndex==2){stepIndex++}
+                    result.continued = true
                 }
                 return result
             }
@@ -231,15 +234,15 @@ class WhileRunner(parentStep: While) : AbstractRunner(parentStep) {
             is ContainerStep -> {
                 val result = handleContainerStep {
                     resetSubRunner()
-                    stepIndex=0
+                    stepIndex = 0
                 }
                 if (result is BreakResult && !result.broken) {
                     this.markAsDone()
-                    result.broken=true
+                    result.broken = true
                 } else if (result is ContinueResult && !result.continued) {
                     resetSubRunner()
                     stepIndex = 0
-                    result.continued=true
+                    result.continued = true
                 }
                 return result
             }
