@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="07db29b8-2fdd-4e60-96cf-d48be0124bb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/HelperFunctions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/HelperFunctions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/Steps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/Steps.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +76,7 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.ForTest">
+  <component name="RunManager" selected="Gradle.VisuAlgorithms [test]">
     <configuration name="ForTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -174,8 +174,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ForTest" />
         <item itemvalue="Gradle.VisuAlgorithms [test]" />
+        <item itemvalue="Gradle.ForTest" />
         <item itemvalue="Gradle.WhileTest" />
         <item itemvalue="Gradle.VisuAlgorithms [build]" />
         <item itemvalue="Gradle.IfTest" />
@@ -296,18 +296,23 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
-          <line>236</line>
-          <option name="timeStamp" value="38" />
+          <line>210</line>
+          <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
-          <line>234</line>
-          <option name="timeStamp" value="46" />
+          <line>186</line>
+          <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
-          <line>238</line>
-          <option name="timeStamp" value="47" />
+          <line>200</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/runner/Runner.kt</url>
+          <line>184</line>
+          <option name="timeStamp" value="52" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

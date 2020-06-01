@@ -17,7 +17,7 @@ open class ContainerStep private constructor(private val parentVars: Vars?) :
     ParentStep(parentVars) {
     private val children = mutableListOf<Step>()
     private var currentIfs = mutableListOf<If>()
-    fun add(desc: String, plainAction: PlainAction) = add(
+    fun add(desc: String, plainAction: PlainAction) = resetAndAdd(
         Action(
             parentVars,
             desc,
