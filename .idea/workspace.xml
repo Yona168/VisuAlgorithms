@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="07db29b8-2fdd-4e60-96cf-d48be0124bb5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/Steps.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/Steps.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/HelperFunctions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/com/github/yona168/visualgorithms/arch/steps/HelperFunctions.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,32 +77,13 @@
       <command value="gradle build" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.VisuAlgorithms [test]">
+  <component name="RunManager" selected="Kotlin.MainKt">
     <configuration name="ForTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" value="--tests &quot;ForTest&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="IfTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;IfTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -172,13 +154,26 @@
       <GradleScriptDebugEnabled>false</GradleScriptDebugEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="MainKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="VisuAlgorithms.main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.github.yona168.visualgorithms.arch.MainKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.MainKt" />
+        <item itemvalue="Gradle.VisuAlgorithms [build]" />
         <item itemvalue="Gradle.VisuAlgorithms [test]" />
         <item itemvalue="Gradle.ForTest" />
         <item itemvalue="Gradle.WhileTest" />
-        <item itemvalue="Gradle.VisuAlgorithms [build]" />
-        <item itemvalue="Gradle.IfTest" />
       </list>
     </recent_temporary>
   </component>
@@ -230,42 +225,42 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="792" y="0" key="#xdebugger.evaluate/0.0.1280.680@0.0.1280.680" timestamp="1591029400919" />
-    <state width="1237" height="40" key="GridCell.Tab.0.bottom" timestamp="1591031726361">
+    <state width="1237" height="184" key="GridCell.Tab.0.bottom" timestamp="1591295776271">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="40" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1591031726361" />
+    <state width="1237" height="184" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1591295776271" />
     <state width="1493" height="190" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="40" key="GridCell.Tab.0.center" timestamp="1591031726360">
+    <state width="1237" height="184" key="GridCell.Tab.0.center" timestamp="1591295776271">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="40" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1591031726360" />
+    <state width="1237" height="184" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1591295776271" />
     <state width="1493" height="190" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="40" key="GridCell.Tab.0.left" timestamp="1591031726360">
+    <state width="1237" height="184" key="GridCell.Tab.0.left" timestamp="1591295776270">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="40" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1591031726360" />
+    <state width="1237" height="184" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1591295776270" />
     <state width="1493" height="190" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585346790844" />
-    <state width="1237" height="40" key="GridCell.Tab.0.right" timestamp="1591031726360">
+    <state width="1237" height="184" key="GridCell.Tab.0.right" timestamp="1591295776271">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="40" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1591031726360" />
+    <state width="1237" height="184" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1591295776271" />
     <state width="1493" height="190" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585346790845" />
-    <state width="1237" height="40" key="GridCell.Tab.1.bottom" timestamp="1591031726361">
+    <state width="1237" height="82" key="GridCell.Tab.1.bottom" timestamp="1591037210001">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="40" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1591031726361" />
-    <state width="1237" height="40" key="GridCell.Tab.1.center" timestamp="1591031726361">
+    <state width="1237" height="82" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1591037210001" />
+    <state width="1237" height="82" key="GridCell.Tab.1.center" timestamp="1591037210001">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="40" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1591031726361" />
-    <state width="1237" height="40" key="GridCell.Tab.1.left" timestamp="1591031726361">
+    <state width="1237" height="82" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1591037210001" />
+    <state width="1237" height="82" key="GridCell.Tab.1.left" timestamp="1591037210001">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="40" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1591031726361" />
-    <state width="1237" height="40" key="GridCell.Tab.1.right" timestamp="1591031726361">
+    <state width="1237" height="82" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1591037210001" />
+    <state width="1237" height="82" key="GridCell.Tab.1.right" timestamp="1591037210001">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
-    <state width="1237" height="40" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1591031726361" />
+    <state width="1237" height="82" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1591037210001" />
     <state x="208" y="0" key="SettingsEditor" timestamp="1587408702638">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
